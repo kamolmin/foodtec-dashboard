@@ -10,83 +10,96 @@
   *{margin:0;padding:0;box-sizing:border-box;}
   body{font-family:'Inter',sans-serif;background:#F4F6F9;color:#1A1A2E;min-height:100vh;}
 
+  /* ── LOGIN ── */
+  #login-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:#0F1B2D;display:flex;align-items:center;justify-content:center;z-index:9999;}
+  .login-box{background:#1E2D3D;border-radius:16px;padding:40px 36px;width:100%;max-width:360px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.4);}
+  .login-logo{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:#fff;margin-bottom:4px;}
+  .login-logo span{color:#00C896;}
+  .login-sub{font-size:12px;color:#64748B;margin-bottom:28px;letter-spacing:1px;text-transform:uppercase;}
+  .login-input{width:100%;padding:13px 16px;border-radius:8px;border:1px solid #2E4A6B;background:#0F1B2D;color:#fff;font-size:14px;margin-bottom:12px;outline:none;transition:border 0.2s;}
+  .login-input:focus{border-color:#00C896;}
+  .login-btn{width:100%;padding:13px;border-radius:8px;background:#00C896;border:none;color:#0F1B2D;font-weight:700;font-size:14px;cursor:pointer;transition:opacity 0.2s;}
+  .login-btn:hover{opacity:0.9;}
+  .login-error{color:#EF4444;font-size:12px;margin-top:8px;display:none;}
+
   /* ── TOP NAV ── */
-  .nav{background:#0F1B2D;padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;}
-  .nav-brand{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#fff;}
+  .nav{background:#0F1B2D;padding:0 24px;height:52px;display:flex;align-items:center;justify-content:space-between;}
+  .nav-brand{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#fff;}
   .nav-brand span{color:#00C896;}
-  .nav-right{display:flex;align-items:center;gap:16px;}
-  .nav-date{font-size:12px;color:#90B4D8;}
-  .nav-badge{background:#EF4444;color:#fff;font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;}
+  .nav-sub{font-size:11px;font-weight:400;color:#90B4D8;margin-left:8px;}
+  .nav-right{display:flex;align-items:center;gap:12px;}
+  .nav-date{font-size:11px;color:#90B4D8;}
+  .nav-badge{background:#EF4444;color:#fff;font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;white-space:nowrap;}
 
   /* ── TABS ── */
-  .tabs{background:#fff;border-bottom:1px solid #E2E8F0;padding:0 32px;display:flex;gap:0;}
-  .tab{padding:14px 24px;font-size:13px;font-weight:500;color:#64748B;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.15s;}
+  .tabs{background:#fff;border-bottom:1px solid #E2E8F0;padding:0 24px;display:flex;gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab{padding:13px 16px;font-size:12px;font-weight:500;color:#64748B;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.15s;white-space:nowrap;flex-shrink:0;}
   .tab:hover{color:#0F1B2D;}
   .tab.active{color:#0F1B2D;border-bottom-color:#00C896;font-weight:600;}
 
   /* ── MAIN ── */
-  .main{padding:28px 32px;max-width:1400px;margin:0 auto;}
+  .main{padding:20px 24px;max-width:1400px;margin:0 auto;}
 
   /* ── KPI CARDS ── */
-  .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
-  .kpi-card{background:#fff;border-radius:10px;padding:20px;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
-  .kpi-label{font-size:11px;font-weight:600;color:#64748B;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;}
-  .kpi-value{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;line-height:1;}
-  .kpi-sub{font-size:11px;color:#94A3B8;margin-top:6px;}
+  .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;}
+  .kpi-card{background:#fff;border-radius:10px;padding:18px;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+  .kpi-label{font-size:10px;font-weight:600;color:#64748B;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;}
+  .kpi-value{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;line-height:1;}
+  .kpi-sub{font-size:10px;color:#94A3B8;margin-top:5px;}
   .kpi-card.green .kpi-value{color:#00C896;}
   .kpi-card.red .kpi-value{color:#EF4444;}
   .kpi-card.amber .kpi-value{color:#F59E0B;}
   .kpi-card.navy .kpi-value{color:#0F1B2D;}
 
   /* ── SECTION HEADER ── */
-  .section-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
-  .section-title{font-size:14px;font-weight:700;color:#0F1B2D;}
-  .section-badge{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;}
+  .section-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;}
+  .section-title{font-size:13px;font-weight:700;color:#0F1B2D;}
+  .section-badge{font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;}
   .badge-sc{background:#EFF6FF;color:#3B82F6;}
   .badge-sales{background:#F0FDF9;color:#00C896;}
 
   /* ── TABLE ── */
-  .table-wrap{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);margin-bottom:24px;}
-  table{width:100%;border-collapse:collapse;}
-  th{background:#0F1B2D;color:#fff;font-size:11px;font-weight:600;padding:11px 14px;text-align:left;letter-spacing:0.5px;}
-  td{padding:10px 14px;font-size:12px;border-bottom:1px solid #F1F5F9;color:#334155;}
+  .table-wrap{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);margin-bottom:20px;overflow-x:auto;}
+  table{width:100%;border-collapse:collapse;min-width:500px;}
+  th{background:#0F1B2D;color:#fff;font-size:11px;font-weight:600;padding:10px 12px;text-align:left;letter-spacing:0.5px;white-space:nowrap;}
+  td{padding:9px 12px;font-size:12px;border-bottom:1px solid #F1F5F9;color:#334155;}
   tr:last-child td{border-bottom:none;}
   tr:nth-child(even) td{background:#F8FAFC;}
   tr:hover td{background:#F0FDF9;}
 
   /* ── STATUS PILLS ── */
-  .pill{display:inline-block;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;}
+  .pill{display:inline-block;padding:2px 9px;border-radius:20px;font-size:10px;font-weight:700;white-space:nowrap;}
   .pill-red{background:#FEF2F2;color:#EF4444;}
   .pill-green{background:#F0FDF9;color:#059669;}
   .pill-amber{background:#FFFBEB;color:#D97706;}
   .pill-grey{background:#F1F5F9;color:#64748B;}
   .pill-blue{background:#EFF6FF;color:#3B82F6;}
 
-  /* ── TWO COL ── */
-  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
-  .three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:24px;}
+  /* ── GRID LAYOUTS ── */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
 
   /* ── ACTIONS ── */
-  .action-item{padding:14px 16px;border-bottom:1px solid #F1F5F9;display:flex;gap:12px;align-items:flex-start;}
+  .action-item{padding:12px 14px;border-bottom:1px solid #F1F5F9;display:flex;gap:10px;align-items:flex-start;}
   .action-item:last-child{border-bottom:none;}
-  .action-owner{font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;white-space:nowrap;margin-top:1px;}
+  .action-owner{font-size:9px;font-weight:700;padding:3px 7px;border-radius:4px;white-space:nowrap;margin-top:2px;flex-shrink:0;}
   .owner-sc{background:#3B82F6;color:#fff;}
   .owner-sales{background:#00C896;color:#fff;}
-  .action-text{font-size:12px;color:#334155;line-height:1.5;}
+  .action-text{font-size:11px;color:#334155;line-height:1.5;flex:1;}
   .action-sku{font-size:10px;color:#94A3B8;margin-top:2px;}
-  .action-priority{font-size:10px;font-weight:600;margin-left:auto;white-space:nowrap;}
+  .action-priority{font-size:10px;font-weight:600;white-space:nowrap;flex-shrink:0;}
   .priority-critical{color:#EF4444;}
   .priority-high{color:#F59E0B;}
   .priority-medium{color:#3B82F6;}
   .priority-low{color:#64748B;}
 
   /* ── LOADING ── */
-  .loading{text-align:center;padding:60px;color:#94A3B8;font-size:14px;}
-  .spinner{width:32px;height:32px;border:3px solid #E2E8F0;border-top-color:#00C896;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px;}
+  .loading{text-align:center;padding:40px;color:#94A3B8;font-size:13px;}
+  .spinner{width:28px;height:28px;border:3px solid #E2E8F0;border-top-color:#00C896;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 12px;}
   @keyframes spin{to{transform:rotate(360deg);}}
 
   /* ── SCORE BAR ── */
-  .score-bar{height:6px;background:#E2E8F0;border-radius:3px;overflow:hidden;margin-top:4px;}
+  .score-bar{height:5px;background:#E2E8F0;border-radius:3px;overflow:hidden;margin-top:4px;}
   .score-fill{height:100%;border-radius:3px;transition:width 0.5s;}
 
   /* ── PAGE SECTIONS ── */
@@ -94,24 +107,47 @@
   .page.active{display:block;}
 
   /* ── FOOTER ── */
-  .footer{text-align:center;padding:20px;font-size:11px;color:#94A3B8;}
+  .footer{text-align:center;padding:16px;font-size:10px;color:#94A3B8;}
+
+  /* ── MOBILE RESPONSIVE ── */
+  @media(max-width:768px){
+    .nav-sub{display:none;}
+    .nav-date{display:none;}
+    .main{padding:14px 12px;}
+    .kpi-row{grid-template-columns:1fr 1fr;gap:10px;}
+    .kpi-value{font-size:20px;}
+    .kpi-label{font-size:9px;}
+    .two-col{grid-template-columns:1fr;}
+    .tab{padding:11px 12px;font-size:11px;}
+    .login-box{padding:32px 24px;margin:16px;}
+    th{font-size:10px;padding:8px 10px;}
+    td{font-size:11px;padding:8px 10px;}
+  }
+
+  @media(max-width:480px){
+    .kpi-row{grid-template-columns:1fr 1fr;}
+    .kpi-value{font-size:18px;}
+    .nav-badge{font-size:9px;padding:2px 8px;}
+    .nav-brand{font-size:16px;}
+  }
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
-<div id="login-screen" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#0F1B2D;display:flex;align-items:center;justify-content:center;z-index:9999;">
-  <div style="background:#1E2D3D;border-radius:12px;padding:40px;width:320px;text-align:center;">
-    <div style="font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:#fff;margin-bottom:4px;">Food<span style="color:#00C896;">Tec</span></div>
-    <div style="font-size:12px;color:#64748B;margin-bottom:28px;">Operations Dashboard</div>
-    <input id="pwd-input" type="password" placeholder="Enter password" style="width:100%;padding:12px;border-radius:8px;border:1px solid #2E4A6B;background:#0F1B2D;color:#fff;font-size:14px;margin-bottom:12px;outline:none;"/>
-    <button onclick="checkPassword()" style="width:100%;padding:12px;border-radius:8px;background:#00C896;border:none;color:#0F1B2D;font-weight:700;font-size:14px;cursor:pointer;">Enter</button>
-    <div id="pwd-error" style="color:#EF4444;font-size:12px;margin-top:8px;display:none;">Incorrect password. Try again.</div>
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">Food<span>Tec</span></div>
+    <div class="login-sub">Operations Dashboard</div>
+    <input id="pwd-input" class="login-input" type="password" placeholder="Enter password"/>
+    <button class="login-btn" onclick="checkPassword()">Enter</button>
+    <div id="pwd-error" class="login-error">Incorrect password. Try again.</div>
   </div>
 </div>
-  <!-- NAV -->
+
+<!-- NAV -->
 <div class="nav">
-  <div class="nav-brand">Food<span>Tec</span> <span style="font-size:13px;font-weight:400;color:#90B4D8;margin-left:8px;">Operations Dashboard</span></div>
+  <div class="nav-brand">Food<span>Tec</span><span class="nav-sub">Operations Dashboard</span></div>
   <div class="nav-right">
     <div class="nav-date" id="nav-date"></div>
     <div class="nav-badge" id="critical-count">Loading...</div>
@@ -123,17 +159,17 @@
   <div class="tab active" onclick="showPage('dashboard',this)">📊 Dashboard</div>
   <div class="tab" onclick="showPage('stock',this)">📦 Stock Health</div>
   <div class="tab" onclick="showPage('forecast',this)">📈 Forecast</div>
-  <div class="tab" onclick="showPage('fillrate',this)">🚚 Order Fill Rate</div>
+  <div class="tab" onclick="showPage('fillrate',this)">🚚 Fill Rate</div>
   <div class="tab" onclick="showPage('actions',this)">⚡ Actions</div>
   <div class="tab" onclick="showPage('skus',this)">🗂 SKU Master</div>
 </div>
 
 <div class="main">
 
-  <!-- ── DASHBOARD PAGE ── -->
+  <!-- DASHBOARD -->
   <div class="page active" id="page-dashboard">
     <div class="kpi-row" id="kpi-row">
-      <div class="loading"><div class="spinner"></div>Loading data...</div>
+      <div style="grid-column:1/-1;" class="loading"><div class="spinner"></div>Loading data...</div>
     </div>
     <div class="two-col">
       <div>
@@ -184,7 +220,7 @@
     </div>
   </div>
 
-  <!-- ── STOCK PAGE ── -->
+  <!-- STOCK -->
   <div class="page" id="page-stock">
     <div class="section-hdr">
       <div class="section-title">Stock Health — All SKUs</div>
@@ -198,7 +234,7 @@
     </div>
   </div>
 
-  <!-- ── FORECAST PAGE ── -->
+  <!-- FORECAST -->
   <div class="page" id="page-forecast">
     <div class="section-hdr">
       <div class="section-title">Forecast Accuracy — May 2026</div>
@@ -212,7 +248,7 @@
     </div>
   </div>
 
-  <!-- ── FILL RATE PAGE ── -->
+  <!-- FILL RATE -->
   <div class="page" id="page-fillrate">
     <div class="section-hdr">
       <div class="section-title">Order Fill Rate — Weekly</div>
@@ -226,7 +262,7 @@
     </div>
   </div>
 
-  <!-- ── ACTIONS PAGE ── -->
+  <!-- ACTIONS -->
   <div class="page" id="page-actions">
     <div class="section-hdr">
       <div class="section-title">All Actions</div>
@@ -235,7 +271,7 @@
     <div class="table-wrap" id="actions-table"></div>
   </div>
 
-  <!-- ── SKU MASTER PAGE ── -->
+  <!-- SKU MASTER -->
   <div class="page" id="page-skus">
     <div class="section-hdr">
       <div class="section-title">SKU Master</div>
@@ -254,10 +290,26 @@
 <div class="footer">FoodTec Operations Dashboard · Data from Google Sheets · Updates on refresh</div>
 
 <script>
-// ── CONFIG ────────────────────────────────────────────────────────────
 const SHEET_ID = '1sf7k4FYXwMx_4IScGYmbL-kHPbf9HVzfAVzP2rF-6EM';
 const API_KEY  = 'AIzaSyCqGUl8mE8ZhWqdF1SHSC7za4SDyO4ZtUo';
 const BASE     = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values`;
+const PASSWORD = 'FoodTec2026';
+
+// ── LOGIN ─────────────────────────────────────────────────────────────
+function checkPassword() {
+  const pwd = document.getElementById('pwd-input').value;
+  if (pwd === PASSWORD) {
+    document.getElementById('login-screen').style.display = 'none';
+    loadAll();
+  } else {
+    document.getElementById('pwd-error').style.display = 'block';
+    document.getElementById('pwd-input').value = '';
+    document.getElementById('pwd-input').focus();
+  }
+}
+document.getElementById('pwd-input').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') checkPassword();
+});
 
 // ── DATE ─────────────────────────────────────────────────────────────
 document.getElementById('nav-date').textContent = new Date().toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
@@ -270,10 +322,9 @@ function showPage(name, el) {
   el.classList.add('active');
 }
 
-// ── FETCH SHEET ───────────────────────────────────────────────────────
+// ── FETCH ─────────────────────────────────────────────────────────────
 async function fetchSheet(range) {
-  const url = `${BASE}/${range}?key=${API_KEY}`;
-  const res = await fetch(url);
+  const res = await fetch(`${BASE}/${range}?key=${API_KEY}`);
   if (!res.ok) throw new Error('Failed to fetch ' + range);
   const data = await res.json();
   const rows = data.values || [];
@@ -286,41 +337,30 @@ async function fetchSheet(range) {
   });
 }
 
-// ── STATUS PILL ───────────────────────────────────────────────────────
+// ── HELPERS ───────────────────────────────────────────────────────────
 function pill(status) {
   const map = {
-    'DEFICIT'   : 'pill-red',
-    'EXCESS'    : 'pill-amber',
-    'OK'        : 'pill-green',
-    'On Track'  : 'pill-green',
-    'At Risk'   : 'pill-amber',
-    'Miss'      : 'pill-red',
-    'Stockout'  : 'pill-red',
-    'No Orders' : 'pill-grey',
-    'Open'      : 'pill-blue',
-    'Done'      : 'pill-green',
-    'CRITICAL'  : 'pill-red',
-    'HIGH'      : 'pill-amber',
-    'MEDIUM'    : 'pill-blue',
-    'LOW'       : 'pill-grey',
+    'DEFICIT':'pill-red','EXCESS':'pill-amber','OK':'pill-green',
+    'On Track':'pill-green','At Risk':'pill-amber','Miss':'pill-red',
+    'Stockout':'pill-red','No Orders':'pill-grey','Open':'pill-blue',
+    'Done':'pill-green','CRITICAL':'pill-red','HIGH':'pill-amber',
+    'MEDIUM':'pill-blue','LOW':'pill-grey',
   };
-  const cls = map[status] || 'pill-grey';
-  return `<span class="pill ${cls}">${status}</span>`;
+  return `<span class="pill ${map[status]||'pill-grey'}">${status}</span>`;
 }
-
 function fmt(val) {
   const n = parseFloat(val);
-  if (isNaN(n)) return val || '—';
-  return n.toLocaleString();
+  return isNaN(n) ? (val||'—') : n.toLocaleString();
 }
-
 function fmtUSD(val) {
   const n = parseFloat(val);
-  if (isNaN(n) || n === 0) return '—';
-  return '$' + n.toLocaleString();
+  return (!isNaN(n) && n > 0) ? '$' + n.toLocaleString() : '—';
+}
+function pctColor(n) {
+  return n >= 90 ? '#059669' : n >= 60 ? '#D97706' : '#EF4444';
 }
 
-// ── LOAD ALL DATA ─────────────────────────────────────────────────────
+// ── LOAD ──────────────────────────────────────────────────────────────
 async function loadAll() {
   try {
     const [skus, stock, forecast, fillrate, actions] = await Promise.all([
@@ -343,39 +383,37 @@ async function loadAll() {
     renderSKUTable(skus);
 
     const critical = actions.filter(a => a.Priority === 'CRITICAL' && a.Status === 'Open').length;
-    document.getElementById('critical-count').textContent = critical + ' Critical Actions';
+    document.getElementById('critical-count').textContent = critical + ' Critical';
 
   } catch(e) {
     document.getElementById('kpi-row').innerHTML = `
-      <div style="grid-column:1/-1;background:#FEF2F2;border-radius:10px;padding:24px;color:#EF4444;font-size:13px;">
-        <strong>⚠ Could not load data.</strong><br>
-        The Google Sheets API key needs to be configured. See setup instructions below.<br><br>
-        <small style="color:#94A3B8;">${e.message}</small>
+      <div style="grid-column:1/-1;background:#FEF2F2;border-radius:10px;padding:20px;color:#EF4444;font-size:13px;">
+        <strong>⚠ Could not load data.</strong><br><small style="color:#94A3B8;">${e.message}</small>
       </div>`;
   }
 }
 
-// ── KPI CARDS ─────────────────────────────────────────────────────────
+// ── KPIs ──────────────────────────────────────────────────────────────
 function renderKPIs(stock, actions, fillrate, forecast) {
   const deficits  = stock.filter(s => s.Status === 'DEFICIT').length;
   const excess    = stock.filter(s => s.Status === 'EXCESS').length;
   const openActs  = actions.filter(a => a.Status === 'Open').length;
-  const shipped   = fillrate.reduce((s,r) => s + (parseFloat(r.Shipped)||0), 0);
-  const confirmed = fillrate.reduce((s,r) => s + (parseFloat(r.Confirmed_Orders)||0), 0);
+  const shipped   = fillrate.reduce((s,r) => s+(parseFloat(r.Shipped)||0), 0);
+  const confirmed = fillrate.reduce((s,r) => s+(parseFloat(r.Confirmed_Orders)||0), 0);
   const fillPct   = confirmed > 0 ? Math.round(shipped/confirmed*100) : 0;
-  const mayFcst   = forecast.reduce((s,r) => s + (parseFloat(r.May_Forecast)||0), 0);
-  const mayAct    = forecast.reduce((s,r) => s + (parseFloat(r.May_Actual)||0), 0);
+  const mayFcst   = forecast.reduce((s,r) => s+(parseFloat(r.May_Forecast)||0), 0);
+  const mayAct    = forecast.reduce((s,r) => s+(parseFloat(r.May_Actual)||0), 0);
   const fcstPct   = mayFcst > 0 ? Math.round(mayAct/mayFcst*100) : 0;
 
   document.getElementById('kpi-row').innerHTML = `
-    <div class="kpi-card ${fillPct >= 90 ? 'green' : fillPct >= 70 ? 'amber' : 'red'}">
+    <div class="kpi-card ${fillPct>=90?'green':fillPct>=70?'amber':'red'}">
       <div class="kpi-label">Order Fill Rate</div>
       <div class="kpi-value">${fillPct}%</div>
       <div class="score-bar"><div class="score-fill" style="width:${fillPct}%;background:${fillPct>=90?'#00C896':fillPct>=70?'#F59E0B':'#EF4444'};"></div></div>
       <div class="kpi-sub">Target ≥ 95%</div>
     </div>
-    <div class="kpi-card ${fcstPct >= 90 ? 'green' : fcstPct >= 60 ? 'amber' : 'red'}">
-      <div class="kpi-label">Forecast Accuracy MTD</div>
+    <div class="kpi-card ${fcstPct>=90?'green':fcstPct>=60?'amber':'red'}">
+      <div class="kpi-label">Forecast Accuracy</div>
       <div class="kpi-value">${fcstPct}%</div>
       <div class="score-bar"><div class="score-fill" style="width:${fcstPct}%;background:${fcstPct>=90?'#00C896':fcstPct>=60?'#F59E0B':'#EF4444'};"></div></div>
       <div class="kpi-sub">Target ≥ 90%</div>
@@ -392,27 +430,26 @@ function renderKPIs(stock, actions, fillrate, forecast) {
     </div>`;
 }
 
-// ── STOCK SUMMARY ─────────────────────────────────────────────────────
+// ── SUMMARIES ─────────────────────────────────────────────────────────
 function renderStockSummary(stock) {
-  const issues = stock.filter(s => s.Status === 'DEFICIT' || s.Status === 'EXCESS').slice(0,8);
+  const issues = stock.filter(s => s.Status==='DEFICIT'||s.Status==='EXCESS').slice(0,8);
   document.getElementById('stock-summary').innerHTML = issues.map(s => `
     <tr>
       <td><strong>${s.SKU_Name}</strong></td>
       <td>${pill(s.Status)}</td>
-      <td>${s.Actual_DOH_Days || '0'} days</td>
-      <td>${s.Target_DOH_Days} days</td>
+      <td>${s.Actual_DOH_Days||'0'}d</td>
+      <td>${s.Target_DOH_Days}d</td>
       <td style="color:${s.Status==='DEFICIT'?'#EF4444':'#F59E0B'};font-weight:600;">
-        ${s.Status==='DEFICIT' ? '-' + fmtUSD(s.Deficit_USD) : '+' + fmtUSD(s.Excess_USD)}
+        ${s.Status==='DEFICIT'?'-'+fmtUSD(s.Deficit_USD):'+'+fmtUSD(s.Excess_USD)}
       </td>
     </tr>`).join('');
 }
 
-// ── ACTIONS SUMMARY ───────────────────────────────────────────────────
 function renderActionsSummary(actions) {
-  const priority = ['CRITICAL','HIGH','MEDIUM','LOW'];
-  const sorted = [...actions].sort((a,b) => priority.indexOf(a.Priority) - priority.indexOf(b.Priority));
-  const open = sorted.filter(a => a.Status === 'Open').slice(0,6);
-  document.getElementById('actions-summary').innerHTML = open.map(a => `
+  const order = ['CRITICAL','HIGH','MEDIUM','LOW'];
+  const sorted = [...actions].sort((a,b)=>order.indexOf(a.Priority)-order.indexOf(b.Priority));
+  const open = sorted.filter(a=>a.Status==='Open').slice(0,6);
+  document.getElementById('actions-summary').innerHTML = open.map(a=>`
     <div class="action-item">
       <span class="action-owner ${a.Owner==='SC'?'owner-sc':'owner-sales'}">${a.Owner}</span>
       <div style="flex:1;">
@@ -423,40 +460,38 @@ function renderActionsSummary(actions) {
     </div>`).join('');
 }
 
-// ── FORECAST SUMMARY ──────────────────────────────────────────────────
 function renderForecastSummary(forecast) {
-  document.getElementById('forecast-summary').innerHTML = forecast.slice(0,8).map(f => {
-    const pct = f.May_Attainment || '0%';
-    const n   = parseFloat(pct) || 0;
+  document.getElementById('forecast-summary').innerHTML = forecast.slice(0,8).map(f=>{
+    const n=parseFloat(f.May_Attainment)||0;
     return `<tr>
-      <td><strong>${f.SKU_Name.substring(0,22)}</strong></td>
+      <td><strong>${f.SKU_Name.substring(0,20)}</strong></td>
       <td>${fmt(f.May_Forecast)}</td>
-      <td>${fmt(f.May_Actual) || '—'}</td>
-      <td><span style="color:${n>=90?'#059669':n>=60?'#D97706':'#EF4444'};font-weight:600;">${pct}</span></td>
+      <td>${fmt(f.May_Actual)||'—'}</td>
+      <td><span style="color:${pctColor(n)};font-weight:600;">${f.May_Attainment||'0%'}</span></td>
     </tr>`;}).join('');
 }
 
-// ── FILL RATE SUMMARY ─────────────────────────────────────────────────
 function renderFillRateSummary(fillrate) {
-  document.getElementById('fillrate-summary').innerHTML = fillrate.filter(f=>parseFloat(f.Confirmed_Orders)>0).slice(0,8).map(f => `
+  document.getElementById('fillrate-summary').innerHTML = fillrate
+    .filter(f=>parseFloat(f.Confirmed_Orders)>0).slice(0,8).map(f=>`
     <tr>
-      <td><strong>${f.SKU_Name.substring(0,22)}</strong></td>
+      <td><strong>${f.SKU_Name.substring(0,20)}</strong></td>
       <td>${fmt(f.Confirmed_Orders)}</td>
       <td>${fmt(f.Shipped)}</td>
-      <td><span style="font-weight:600;">${f.Fill_Rate||'0%'}</span></td>
+      <td><strong>${f.Fill_Rate||'0%'}</strong></td>
       <td>${pill(f.Status)}</td>
     </tr>`).join('');
 }
 
 // ── FULL TABLES ───────────────────────────────────────────────────────
 function renderStockTable(stock) {
-  document.getElementById('stock-table').innerHTML = stock.map(s => `
+  document.getElementById('stock-table').innerHTML = stock.map(s=>`
     <tr>
-      <td><code style="font-size:11px;background:#F1F5F9;padding:2px 6px;border-radius:4px;">${s.SKU_Code}</code></td>
+      <td><code style="font-size:10px;background:#F1F5F9;padding:2px 5px;border-radius:3px;">${s.SKU_Code}</code></td>
       <td><strong>${s.SKU_Name}</strong></td>
       <td>${pill(s.Status)}</td>
       <td>${s.Target_DOH_Days}</td>
-      <td>${s.Actual_DOH_Days || '0'}</td>
+      <td>${s.Actual_DOH_Days||'0'}</td>
       <td>${fmtUSD(s.Current_Stock_USD)}</td>
       <td>${fmtUSD(s.Target_Stock_USD)}</td>
       <td style="color:#F59E0B;font-weight:${s.Excess_USD>0?'600':'400'}">${s.Excess_USD>0?fmtUSD(s.Excess_USD):'—'}</td>
@@ -467,16 +502,15 @@ function renderStockTable(stock) {
 }
 
 function renderForecastTable(forecast) {
-  document.getElementById('forecast-table').innerHTML = forecast.map(f => {
-    const pct = f.May_Attainment || '0%';
-    const n   = parseFloat(pct) || 0;
+  document.getElementById('forecast-table').innerHTML = forecast.map(f=>{
+    const n=parseFloat(f.May_Attainment)||0;
     return `<tr>
-      <td><code style="font-size:11px;background:#F1F5F9;padding:2px 6px;border-radius:4px;">${f.SKU_Code}</code></td>
+      <td><code style="font-size:10px;background:#F1F5F9;padding:2px 5px;border-radius:3px;">${f.SKU_Code}</code></td>
       <td><strong>${f.SKU_Name}</strong></td>
       <td>${f.UOM}</td>
       <td>${fmt(f.May_Forecast)}</td>
       <td>${fmt(f.May_Actual)||'—'}</td>
-      <td><span style="color:${n>=90?'#059669':n>=60?'#D97706':'#EF4444'};font-weight:600;">${pct}</span></td>
+      <td><span style="color:${pctColor(n)};font-weight:600;">${f.May_Attainment||'0%'}</span></td>
       <td>${fmt(f.June_Forecast)}</td>
       <td style="font-size:11px;color:#64748B;">${f.Source}</td>
       <td style="font-size:11px;color:#64748B;">${f.Notes}</td>
@@ -484,9 +518,9 @@ function renderForecastTable(forecast) {
 }
 
 function renderFillRateTable(fillrate) {
-  document.getElementById('fillrate-table').innerHTML = fillrate.map(f => `
+  document.getElementById('fillrate-table').innerHTML = fillrate.map(f=>`
     <tr>
-      <td><code style="font-size:11px;background:#F1F5F9;padding:2px 6px;border-radius:4px;">${f.SKU_Code}</code></td>
+      <td><code style="font-size:10px;background:#F1F5F9;padding:2px 5px;border-radius:3px;">${f.SKU_Code}</code></td>
       <td><strong>${f.SKU_Name}</strong></td>
       <td>${f.UOM}</td>
       <td>${fmt(f.Confirmed_Orders)}</td>
@@ -499,17 +533,17 @@ function renderFillRateTable(fillrate) {
 }
 
 function renderActionsTable(actions) {
-  const priority = ['CRITICAL','HIGH','MEDIUM','LOW'];
-  const sorted = [...actions].sort((a,b) => priority.indexOf(a.Priority) - priority.indexOf(b.Priority));
-  document.getElementById('actions-table').innerHTML = sorted.map(a => `
+  const order = ['CRITICAL','HIGH','MEDIUM','LOW'];
+  const sorted = [...actions].sort((a,b)=>order.indexOf(a.Priority)-order.indexOf(b.Priority));
+  document.getElementById('actions-table').innerHTML = sorted.map(a=>`
     <div class="action-item">
       <span class="action-owner ${a.Owner==='SC'?'owner-sc':'owner-sales'}">${a.Owner}</span>
       <div style="flex:1;">
         <div class="action-text"><strong>${a.Action}</strong></div>
         <div class="action-sku">${a.SKU_Code} · ${a.SKU_Name} · Due: ${a.Due_Date}</div>
-        <div style="font-size:11px;color:#94A3B8;margin-top:2px;">${a.Notes}</div>
+        <div style="font-size:10px;color:#94A3B8;margin-top:2px;">${a.Notes}</div>
       </div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;">
         <div class="action-priority priority-${a.Priority.toLowerCase()}">${a.Priority}</div>
         ${pill(a.Status)}
       </div>
@@ -517,34 +551,19 @@ function renderActionsTable(actions) {
 }
 
 function renderSKUTable(skus) {
-  document.getElementById('sku-table').innerHTML = skus.map(s => `
+  document.getElementById('sku-table').innerHTML = skus.map(s=>`
     <tr>
-      <td><code style="font-size:11px;background:#F1F5F9;padding:2px 6px;border-radius:4px;">${s.SKU_Code}</code></td>
+      <td><code style="font-size:10px;background:#F1F5F9;padding:2px 5px;border-radius:3px;">${s.SKU_Code}</code></td>
       <td><strong>${s.SKU_Name}</strong></td>
       <td>${s.Category}</td>
       <td>${s.UOM}</td>
       <td>${s.Lead_Time_Days}</td>
       <td>${s.Target_DOH_Days}</td>
-      <td>$${parseFloat(s.Price_USD).toFixed(3)}</td>
-      <td>${pill(s.Runner_Class==='High Runner'?'On Track':s.Runner_Class==='Mid Runner'?'At Risk':'No Orders')} <span style="font-size:11px;margin-left:4px;">${s.Runner_Class}</span></td>
+      <td>$${parseFloat(s.Price_USD||0).toFixed(3)}</td>
+      <td>${s.Runner_Class}</td>
       <td style="font-size:11px;color:#64748B;">${s.Notes}</td>
     </tr>`).join('');
 }
-
-// ── START ─────────────────────────────────────────────────────────────
-// ── LOGIN ─────────────────────────────────────────────────────────────
-function checkPassword() {
-  const pwd = document.getElementById('pwd-input').value;
-  if (pwd === 'FoodTec2026') {
-    document.getElementById('login-screen').style.display = 'none';
-    loadAll();
-  } else {
-    document.getElementById('pwd-error').style.display = 'block';
-  }
-}
-document.getElementById('pwd-input').addEventListener('keypress', function(e) {
-  if (e.key === 'Enter') checkPassword();
-});
 </script>
 </body>
 </html>
