@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>FoodTec Operations Dashboard</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap');
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',sans-serif;background:#F4F6F9;color:#1A1A2E;min-height:100vh;}
+
+  /* ── TOP NAV ── */
+  .nav{background:#0F1B2D;padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;}
+  .nav-brand{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#fff;}
+  .nav-brand span{color:#00C896;}
+  .nav-right{display:flex;align-items:center;gap:16px;}
+  .nav-date{font-size:12px;color:#90B4D8;}
+  .nav-badge{background:#EF4444;color:#fff;font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;}
+
+  /* ── TABS ── */
+  .tabs{background:#fff;border-bottom:1px solid #E2E8F0;padding:0 32px;display:flex;gap:0;}
+  .tab{padding:14px 24px;font-size:13px;font-weight:500;color:#64748B;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.15s;}
+  .tab:hover{color:#0F1B2D;}
+  .tab.active{color:#0F1B2D;border-bottom-color:#00C896;font-weight:600;}
+
+  /* ── MAIN ── */
+  .main{padding:28px 32px;max-width:1400px;margin:0 auto;}
+
+  /* ── KPI CARDS ── */
+  .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
+  .kpi-card{background:#fff;border-radius:10px;padding:20px;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+  .kpi-label{font-size:11px;font-weight:600;color:#64748B;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;}
+  .kpi-value{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;line-height:1;}
+  .kpi-sub{font-size:11px;color:#94A3B8;margin-top:6px;}
+  .kpi-card.green .kpi-value{color:#00C896;}
+  .kpi-card.red .kpi-value{color:#EF4444;}
+  .kpi-card.amber .kpi-value{color:#F59E0B;}
+  .kpi-card.navy .kpi-value{color:#0F1B2D;}
+
+  /* ── SECTION HEADER ── */
+  .section-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+  .section-title{font-size:14px;font-weight:700;color:#0F1B2D;}
+  .section-badge{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;}
+  .badge-sc{background:#EFF6FF;color:#3B82F6;}
+  .badge-sales{background:#F0FDF9;color:#00C896;}
+
+  /* ── TABLE ── */
+  .table-wrap{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);margin-bottom:24px;}
+  table{width:100%;border-collapse:collapse;}
+  th{background:#0F1B2D;color:#fff;font-size:11px;font-weight:600;padding:11px 14px;text-align:left;letter-spacing:0.5px;}
+  td{padding:10px 14px;font-size:12px;border-bottom:1px solid #F1F5F9;color:#334155;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:#F8FAFC;}
+  tr:hover td{background:#F0FDF9;}
+
+  /* ── STATUS PILLS ── */
+  .pill{display:inline-block;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;}
+  .pill-red{background:#FEF2F2;color:#EF4444;}
+  .pill-green{background:#F0FDF9;color:#059669;}
+  .pill-amber{background:#FFFBEB;color:#D97706;}
+  .pill-grey{background:#F1F5F9;color:#64748B;}
+  .pill-blue{background:#EFF6FF;color:#3B82F6;}
+
+  /* ── TWO COL ── */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+  .three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:24px;}
+
+  /* ── ACTIONS ── */
+  .action-item{padding:14px 16px;border-bottom:1px solid #F1F5F9;display:flex;gap:12px;align-items:flex-start;}
+  .action-item:last-child{border-bottom:none;}
+  .action-owner{font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;white-space:nowrap;margin-top:1px;}
+  .owner-sc{background:#3B82F6;color:#fff;}
+  .owner-sales{background:#00C896;color:#fff;}
+  .action-text{font-size:12px;color:#334155;line-height:1.5;}
+  .action-sku{font-size:10px;color:#94A3B8;margin-top:2px;}
+  .action-priority{font-size:10px;font-weight:600;margin-left:auto;white-space:nowrap;}
+  .priority-critical{color:#EF4444;}
+  .priority-high{color:#F59E0B;}
+  .priority-medium{color:#3B82F6;}
+  .priority-low{color:#64748B;}
+
+  /* ── LOADING ── */
+  .loading{text-align:center;padding:60px;color:#94A3B8;font-size:14px;}
+  .spinner{width:32px;height:32px;border:3px solid #E2E8F0;border-top-color:#00C896;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  /* ── SCORE BAR ── */
+  .score-bar{height:6px;background:#E2E8F0;border-radius:3px;overflow:hidden;margin-top:4px;}
+  .score-fill{height:100%;border-radius:3px;transition:width 0.5s;}
+
+  /* ── PAGE SECTIONS ── */
+  .page{display:none;}
+  .page.active{display:block;}
+
+  /* ── FOOTER ── */
+  .footer{text-align:center;padding:20px;font-size:11px;color:#94A3B8;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="nav">
+  <div class="nav-brand">Food<span>Tec</span> <span style="font-size:13px;font-weight:400;color:#90B4D8;margin-left:8px;">Operations Dashboard</span></div>
+  <div class="nav-right">
+    <div class="nav-date" id="nav-date"></div>
+    <div class="nav-badge" id="critical-count">Loading...</div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab active" onclick="showPage('dashboard',this)">📊 Dashboard</div>
+  <div class="tab" onclick="showPage('stock',this)">📦 Stock Health</div>
+  <div class="tab" onclick="showPage('forecast',this)">📈 Forecast</div>
+  <div class="tab" onclick="showPage('fillrate',this)">🚚 Order Fill Rate</div>
+  <div class="tab" onclick="showPage('actions',this)">⚡ Actions</div>
+  <div class="tab" onclick="showPage('skus',this)">🗂 SKU Master</div>
+</div>
+
+<div class="main">
+
+  <!-- ── DASHBOARD PAGE ── -->
+  <div class="page active" id="page-dashboard">
+    <div class="kpi-row" id="kpi-row">
+      <div class="loading"><div class="spinner"></div>Loading data...</div>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="section-hdr">
+          <div class="section-title">Stock Health — Top Issues</div>
+          <div class="section-badge badge-sc">Owner: SC</div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>SKU</th><th>Status</th><th>Actual DoH</th><th>Target DoH</th><th>Deficit / Excess</th></tr></thead>
+            <tbody id="stock-summary"></tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="section-hdr">
+          <div class="section-title">Actions Required</div>
+          <div class="section-badge badge-sc">Critical first</div>
+        </div>
+        <div class="table-wrap" id="actions-summary"></div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="section-hdr">
+          <div class="section-title">Forecast Accuracy — May MTD</div>
+          <div class="section-badge badge-sales">Owner: Sales</div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>SKU</th><th>May Forecast</th><th>Actual</th><th>Attainment</th></tr></thead>
+            <tbody id="forecast-summary"></tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="section-hdr">
+          <div class="section-title">Order Fill Rate — This Week</div>
+          <div class="section-badge badge-sc">Owner: SC</div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>SKU</th><th>Confirmed</th><th>Shipped</th><th>Fill Rate</th><th>Status</th></tr></thead>
+            <tbody id="fillrate-summary"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── STOCK PAGE ── -->
+  <div class="page" id="page-stock">
+    <div class="section-hdr">
+      <div class="section-title">Stock Health — All SKUs</div>
+      <div class="section-badge badge-sc">Owner: Supply Chain</div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>SKU Code</th><th>SKU Name</th><th>Status</th><th>Target DoH</th><th>Actual DoH</th><th>Current Stock USD</th><th>Target Stock USD</th><th>Excess USD</th><th>Deficit USD</th><th>Aging 60+ USD</th><th>Notes</th></tr></thead>
+        <tbody id="stock-table"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── FORECAST PAGE ── -->
+  <div class="page" id="page-forecast">
+    <div class="section-hdr">
+      <div class="section-title">Forecast Accuracy — May 2026</div>
+      <div class="section-badge badge-sales">Owner: Sales Team</div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>SKU Code</th><th>SKU Name</th><th>UOM</th><th>May Forecast</th><th>May Actual</th><th>Attainment</th><th>June Forecast</th><th>Source</th><th>Notes</th></tr></thead>
+        <tbody id="forecast-table"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── FILL RATE PAGE ── -->
+  <div class="page" id="page-fillrate">
+    <div class="section-hdr">
+      <div class="section-title">Order Fill Rate — Weekly</div>
+      <div class="section-badge badge-sc">Owner: Supply Chain</div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>SKU Code</th><th>SKU Name</th><th>UOM</th><th>Confirmed Orders</th><th>Shipped</th><th>Fill Rate</th><th>Week</th><th>Status</th><th>Notes</th></tr></thead>
+        <tbody id="fillrate-table"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── ACTIONS PAGE ── -->
+  <div class="page" id="page-actions">
+    <div class="section-hdr">
+      <div class="section-title">All Actions</div>
+      <div class="section-badge badge-sc">Sorted by priority</div>
+    </div>
+    <div class="table-wrap" id="actions-table"></div>
+  </div>
+
+  <!-- ── SKU MASTER PAGE ── -->
+  <div class="page" id="page-skus">
+    <div class="section-hdr">
+      <div class="section-title">SKU Master</div>
+      <div class="section-badge badge-sc">Reference data</div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>SKU Code</th><th>SKU Name</th><th>Category</th><th>UOM</th><th>Lead Time (days)</th><th>Target DoH (days)</th><th>Price (USD)</th><th>Runner Class</th><th>Notes</th></tr></thead>
+        <tbody id="sku-table"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">FoodTec Operations Dashboard · Data from Google Sheets · Updates on refresh</div>
+
+<script>
+// ── CONFIG ────────────────────────────────────────────────────────────
+const SHEET_ID = '1sf7k4FYXwMx_4IScGYmbL-kHPbf9HVzfAVzP2rF-6EM';
+const API_KEY  = 'AIzaSyD-placeholder-replace-with-real-key';
+const BASE     = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values`;
+
+// ── DATE ─────────────────────────────────────────────────────────────
+document.getElementById('nav-date').textContent = new Date().toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+
+// ── TABS ─────────────────────────────────────────────────────────────
+function showPage(name, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  el.classList.add('active');
+}
+
+// ── FETCH SHEET ───────────────────────────────────────────────────────
+async function fetchSheet(range) {
+  const url = `${BASE}/${range}?key=${API_KEY}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error('Failed to fetch ' + range);
+  const data = await res.json();
+  const rows = data.values || [];
+  if (rows.length < 2) return [];
+  const headers = rows[0];
+  return rows.slice(1).map(row => {
+    const obj = {};
+    headers.forEach((h, i) => obj[h] = row[i] || '');
+    return obj;
+  });
+}
+
+// ── STATUS PILL ───────────────────────────────────────────────────────
+function pill(status) {
+  const map = {
+    'DEFICIT'   : 'pill-red',
+    'EXCESS'    : 'pill-amber',
+    'OK'        : 'pill-green',
+    'On Track'  : 'pill-green',
+    'At Risk'   : 'pill-amber',
+    'Miss'      : 'pill-red',
+    'Stockout'  : 'pill-red',
+    'No Orders' : 'pill-grey',
+    'Open'      : 'pill-blue',
+    'Done'      : 'pill-green',
+    'CRITICAL'  : 'pill-red',
+    'HIGH'      : 'pill-amber',
+    'MEDIUM'    : 'pill-blue',
+    'LOW'       : 'pill-grey',
+  };
+  const cls = map[status] || 'pill-grey';
+  return `<span class="pill ${cls}">${status}</span>`;
+}
+
+function fmt(val) {
+  const n = parseFloat(val);
+  if (isNaN(n)) return val || '—';
+  return n.toLocaleString();
+}
+
+function fmtUSD(val) {
+  const n = parseFloat(val);
+  if (isNaN(n) || n === 0) return '—';
+  return '$' + n.toLocaleString();
+}
+
+// ── LOAD ALL DATA ─────────────────────────────────────────────────────
+async function loadAll() {
+  try {
+    const [skus, stock, forecast, fillrate, actions] = await Promise.all([
+      fetchSheet('SKU_Master!A:I'),
+      fetchSheet('Stock_Health!A:L'),
+      fetchSheet('Forecast!A:I'),
+      fetchSheet('Order_Fill_Rate!A:I'),
+      fetchSheet('Actions!A:H'),
+    ]);
+
+    renderKPIs(stock, actions, fillrate, forecast);
+    renderStockSummary(stock);
+    renderActionsSummary(actions);
+    renderForecastSummary(forecast);
+    renderFillRateSummary(fillrate);
+    renderStockTable(stock);
+    renderForecastTable(forecast);
+    renderFillRateTable(fillrate);
+    renderActionsTable(actions);
+    renderSKUTable(skus);
+
+    const critical = actions.filter(a => a.Priority === 'CRITICAL' && a.Status === 'Open').length;
+    document.getElementById('critical-count').textContent = critical + ' Critical Actions';
+
+  } catch(e) {
+    document.getElementById('kpi-row').innerHTML = `
+      <div style="grid-column:1/-1;background:#FEF2F2;border-radius:10px;padding:24px;color:#EF4444;font-size:13px;">
+        <strong>⚠ Could not load data.</strong><br>
+        The Google Sheets API key needs to be configured. See setup instructions below.<br><br>
+        <small style="color:#94A3B8;">${e.message}</small>
+      </div>`;
+  }
+}
+
+// ── KPI CARDS ─────────────────────────────────────────────────────────
+function renderKPIs(stock, actions, fillrate, forecast) {
+  const deficits  = stock.filter(s => s.Status === 'DEFICIT').length;
+  const excess    = stock.filter(s => s.Status === 'EXCESS').length;
+  const openActs  = actions.filter(a => a.Status === 'Open').length;
+  const shipped   = fillrate.reduce((s,r) => s + (parseFloat(r.Shipped)||0), 0);
+  const confirmed = fillrate.reduce((s,r) => s + (parseFloat(r.Confirmed_Orders)||0), 0);
+  const fillPct   = confirmed > 0 ? Math.round(shipped/confirmed*100) : 0;
+  const mayFcst   = forecast.reduce((s,r) => s + (parseFloat(r.May_Forecast)||0), 0);
+  const mayAct    = forecast.reduce((s,r) => s + (parseFloat(r.May_Actual)||0), 0);
+  const fcstPct   = mayFcst > 0 ? Math.round(mayAct/mayFcst*100) : 0;
+
+  document.getElementById('kpi-row').innerHTML = `
+    <div class="kpi-card ${fillPct >= 90 ? 'green' : fillPct >= 70 ? 'amber' : 'red'}">
+      <div class="kpi-label">Order Fill Rate</div>
+      <div class="kpi-value">${fillPct}%</div>
+      <div class="score-bar"><div class="score-fill" style="width:${fillPct}%;background:${fillPct>=90?'#00C896':fillPct>=70?'#F59E0B':'#EF4444'};"></div></div>
+      <div class="kpi-sub">Target ≥ 95%</div>
+    </div>
+    <div class="kpi-card ${fcstPct >= 90 ? 'green' : fcstPct >= 60 ? 'amber' : 'red'}">
+      <div class="kpi-label">Forecast Accuracy MTD</div>
+      <div class="kpi-value">${fcstPct}%</div>
+      <div class="score-bar"><div class="score-fill" style="width:${fcstPct}%;background:${fcstPct>=90?'#00C896':fcstPct>=60?'#F59E0B':'#EF4444'};"></div></div>
+      <div class="kpi-sub">Target ≥ 90%</div>
+    </div>
+    <div class="kpi-card red">
+      <div class="kpi-label">SKUs in Deficit</div>
+      <div class="kpi-value">${deficits}</div>
+      <div class="kpi-sub">${excess} SKUs with excess</div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">Open Actions</div>
+      <div class="kpi-value">${openActs}</div>
+      <div class="kpi-sub">${actions.filter(a=>a.Priority==='CRITICAL'&&a.Status==='Open').length} critical</div>
+    </div>`;
+}
+
+// ── STOCK SUMMARY ─────────────────────────────────────────────────────
+function renderStockSummary(stock) {
+  const issues = stock.filter(s => s.Status === 'DEFICIT' || s.Status === 'EXCESS').slice(0,8);
+  document.getElementById('stock-summary').innerHTML = issues.map(s => `
+    <tr>
+      <td><strong>${s.SKU_Name}</strong></td>
+      <td>${pill(s.Status)}</td>
+      <td>${s.Actual_DOH_Days || '0'} days</td>
+      <td>${s.Target_DOH_Days} days</td>
+      <td style="color:${s.Status==='DEFICIT'?'#EF4444':'#F59E0B'};font-weight:600;">
+        ${s.Status==='DEFICIT' ? '-' + fmtUSD(s.Deficit_USD) : '+' + fmtUSD(s.Excess_USD)}
+      </td>
+    </tr>`).join('');
+}
+
+// ── ACTIONS SUMMARY ───────────────────────────────────────────────────
+function renderActionsSummary(actions) {
+  const priority = ['CRITICAL','HIGH','MEDIUM','LOW'];
+  const sorted = [...actions].sort((a,b) => priority.indexOf(a.Priority) - priority.indexOf(b.Priority));
+  const open = sorted.filter(a => a.Status === 'Open').slice(0,6);
+  document.getElementById('actions-summary').innerHTML = open.map(a => `
+    <div class="action-item">
+      <span class="action-owner ${a.Owner==='SC'?'owner-sc':'owner-sales'}">${a.Owner}</span>
+      <div style="flex:1;">
+        <div class="action-text">${a.Action}</div>
+        <div class="action-sku">${a.SKU_Name}</div>
+      </div>
+      <div class="action-priority priority-${a.Priority.toLowerCase()}">${a.Priority}</div>
+    </div>`).join('');
+}
+
+// ── FORECAST SUMMARY ──────────────────────────────────────────────────
+function renderForecastSummary(forecast) {
+  document.getElementById('forecast-summary').innerHTML = forecast.slice(0,8).map(f => {
+    const pct = f.May_Attainment || '0%';
+    const n   = parseFloat(pct) || 0;
+    return `<tr>
+      <td><strong>${f.SKU_Name.substring(0,22)}</strong></td>
+      <td>${fmt(f.May_Forecast)}</td>
+      <td>${fmt(f.May_Actual) || '—'}</td>
+      <td><span style="color:${n>=90?'#059669':n>=60?'#D97706':'#EF4444'};font-weight:600;">${pct}</span></td>
+    </tr>`;}).join('');
+}
+
+// ── FILL RATE SUMMARY ─────────────────────────────────────────────────
+function renderFillRateSummary(fillrate) {
+  document.getElementById('fillrate-summary').innerHTML = fillrate.filter(f=>parseFloat(f.Confirmed_Orders)>0).slice(0,8).map(f => `
+    <tr>
+      <td><strong>${f.SKU_Name.substring(0,22)}</strong></td>
+      <td>${fmt(f.Confirmed_Orders)}</td>
+      <td>${fmt(f.Shipped)}</td>
+      <td><span style="font-weight:600;">${f.Fill_Rate||'0%'}</span></td>
+      <td>${pill(f.Status)}</td>
+    </tr>`).join('');
+}
+
+// ── FULL TABLES ───────────────────────────────────────────────────────
+function renderStockTable(stock) {
+  document.getElementById('stock-table').innerHTML = stock.map(s => `
+    <tr>
+      <td><code style="font-size:11px;background:#F1F5F9;padding:2px 6px;border-radius:4px;">${s.SKU_Code}</code></td>
+      <td><strong>${s.SKU_Name}</strong></td>
+      <td>${pill(s.Status)}</td>
+      <td>${s.Target_DOH_Days}</td>
+      <td>${s.Actual_DOH_Days || '0'}</td>
+      <td>${fmtUSD(s.Current_Stock_USD)}</td>
+      <td>${fmtUSD(s.Target_Stock_USD)}</td>
+      <td style="color:#F59E0B;font-weight:${s.Excess_USD>0?'600':'400'}">${s.Excess_USD>0?fmtUSD(s.Excess_USD):'—'}</td>
+      <td style="color:#EF4444;font-weight:${s.Deficit_USD>0?'600':'400'}">${s.Deficit_USD>0?fmtUSD(s.Deficit_USD):'—'}</td>
+      <td style="color:${s.Aging_60plus_USD>0?'#EF4444':'#94A3B8'}">${s.Aging_60plus_USD>0?fmtUSD(s.Aging_60plus_USD):'—'}</td>
+      <td style="color:#64748B;font-size:11px;">${s.Notes}</td>
+    </tr>`).join('');
+}
+
+function renderForecastTable(forecast) {
+  document.getElementById('forecast-table').innerHTML = forecast.map(f => {
+    const pct = f.May_Attainment || '0%';
+    const n   = parseFloat(pct) || 0;
+    return `<tr>
+      <td><code style="font-size:11px;background:#F1F5F9;padding:2px 6px;border-radius:4px;">${f.SKU_Code}</code></td>
+      <td><strong>${f.SKU_Name}</strong></td>
+      <td>${f.UOM}</td>
+      <td>${fmt(f.May_Forecast)}</td>
+      <td>${fmt(f.May_Actual)||'—'}</td>
+      <td><span style="color:${n>=90?'#059669':n>=60?'#D97706':'#EF4444'};font-weight:600;">${pct}</span></td>
+      <td>${fmt(f.June_Forecast)}</td>
+      <td style="font-size:11px;color:#64748B;">${f.Source}</td>
+      <td style="font-size:11px;color:#64748B;">${f.Notes}</td>
+    </tr>`;}).join('');
+}
+
+function renderFillRateTable(fillrate) {
+  document.getElementById('fillrate-table').innerHTML = fillrate.map(f => `
+    <tr>
+      <td><code style="font-size:11px;background:#F1F5F9;padding:2px 6px;border-radius:4px;">${f.SKU_Code}</code></td>
+      <td><strong>${f.SKU_Name}</strong></td>
+      <td>${f.UOM}</td>
+      <td>${fmt(f.Confirmed_Orders)}</td>
+      <td>${fmt(f.Shipped)}</td>
+      <td><strong>${f.Fill_Rate||'0%'}</strong></td>
+      <td>${f.Week}</td>
+      <td>${pill(f.Status)}</td>
+      <td style="font-size:11px;color:#64748B;">${f.Notes}</td>
+    </tr>`).join('');
+}
+
+function renderActionsTable(actions) {
+  const priority = ['CRITICAL','HIGH','MEDIUM','LOW'];
+  const sorted = [...actions].sort((a,b) => priority.indexOf(a.Priority) - priority.indexOf(b.Priority));
+  document.getElementById('actions-table').innerHTML = sorted.map(a => `
+    <div class="action-item">
+      <span class="action-owner ${a.Owner==='SC'?'owner-sc':'owner-sales'}">${a.Owner}</span>
+      <div style="flex:1;">
+        <div class="action-text"><strong>${a.Action}</strong></div>
+        <div class="action-sku">${a.SKU_Code} · ${a.SKU_Name} · Due: ${a.Due_Date}</div>
+        <div style="font-size:11px;color:#94A3B8;margin-top:2px;">${a.Notes}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+        <div class="action-priority priority-${a.Priority.toLowerCase()}">${a.Priority}</div>
+        ${pill(a.Status)}
+      </div>
+    </div>`).join('');
+}
+
+function renderSKUTable(skus) {
+  document.getElementById('sku-table').innerHTML = skus.map(s => `
+    <tr>
+      <td><code style="font-size:11px;background:#F1F5F9;padding:2px 6px;border-radius:4px;">${s.SKU_Code}</code></td>
+      <td><strong>${s.SKU_Name}</strong></td>
+      <td>${s.Category}</td>
+      <td>${s.UOM}</td>
+      <td>${s.Lead_Time_Days}</td>
+      <td>${s.Target_DOH_Days}</td>
+      <td>$${parseFloat(s.Price_USD).toFixed(3)}</td>
+      <td>${pill(s.Runner_Class==='High Runner'?'On Track':s.Runner_Class==='Mid Runner'?'At Risk':'No Orders')} <span style="font-size:11px;margin-left:4px;">${s.Runner_Class}</span></td>
+      <td style="font-size:11px;color:#64748B;">${s.Notes}</td>
+    </tr>`).join('');
+}
+
+// ── START ─────────────────────────────────────────────────────────────
+loadAll();
+</script>
+</body>
+</html>
