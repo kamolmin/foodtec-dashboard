@@ -299,6 +299,7 @@ const PASSWORD = 'FoodTec2026';
 function checkPassword() {
   const pwd = document.getElementById('pwd-input').value;
   if (pwd === PASSWORD) {
+    localStorage.setItem('ft_auth', 'true');
     document.getElementById('login-screen').style.display = 'none';
     loadAll();
   } else {
@@ -310,6 +311,12 @@ function checkPassword() {
 document.getElementById('pwd-input').addEventListener('keypress', function(e) {
   if (e.key === 'Enter') checkPassword();
 });
+
+// Check if already logged in
+if (localStorage.getItem('ft_auth') === 'true') {
+  document.getElementById('login-screen').style.display = 'none';
+  loadAll();
+}
 
 // ── DATE ─────────────────────────────────────────────────────────────
 document.getElementById('nav-date').textContent = new Date().toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
