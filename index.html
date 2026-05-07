@@ -177,6 +177,7 @@
   <div class="tab" onclick="showPage('fillrate',this)">🚚 Fill Rate</div>
   <div class="tab" onclick="showPage('actions',this)">⚡ Actions</div>
   <div class="tab" onclick="showPage('skus',this)">🗂 SKU Master</div>
+  <div class="tab" onclick="showPage('guide',this)">📖 Guide</div>
 </div>
 
 <div class="main">
@@ -370,6 +371,183 @@
         <tbody id="sku-table"></tbody>
       </table>
     </div>
+  </div>
+
+
+  <!-- GUIDE -->
+  <div class="page" id="page-guide">
+
+    <div class="info-bar">
+      <div class="info-item">📖 This page explains how the dashboard works, what each metric means, and how to update data each week.</div>
+      <div class="info-div"></div>
+      <div class="info-item" style="color:#EF4444;">To update this content — ask Claude to edit the Guide section in GitHub.</div>
+    </div>
+
+    <!-- HOW TO UPDATE DATA -->
+    <div class="section-hdr" style="margin-top:4px;">
+      <div class="section-title">🔄 How to Update Data Each Week</div>
+      <div class="section-badge badge-sc">Every Monday before the meeting</div>
+    </div>
+    <div class="table-wrap" style="margin-bottom:20px;">
+      <table>
+        <thead><tr><th>#</th><th>Sheet Tab</th><th>What to Update</th><th>Who</th><th>How Often</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><strong>Forecast</strong></td><td>Fill in <code>Actual_To_Date</code> — cumulative units shipped so far this month per SKU. Get from ibox shipment report.</td><td>SC / You</td><td>Every Monday + mid-week if possible</td></tr>
+          <tr><td>2</td><td><strong>Forecast</strong></td><td>Update <code>Warehouse_Stock</code> and <code>InTransit_Stock</code> per SKU from latest procurement snapshot.</td><td>SC / You</td><td>Every Monday</td></tr>
+          <tr><td>3</td><td><strong>Order_Fill_Rate</strong></td><td>Fill in <code>Confirmed_Orders</code> and <code>Shipped</code> for the current week per SKU. Get from Asadbek's confirmed orders.</td><td>Asadbek / SC</td><td>Every week</td></tr>
+          <tr><td>4</td><td><strong>Stock_Health</strong></td><td>Update <code>Actual_DOH_Days</code> and <code>Current_Stock_Units</code> from latest warehouse data.</td><td>SC / You</td><td>Every Monday</td></tr>
+          <tr><td>5</td><td><strong>Cash_Cycle</strong></td><td>Update <code>AR_Units</code> per SKU — units shipped but not yet paid. Fill <code>Weekly_DOH_Snapshot</code> with today's DoH for rolling average.</td><td>You</td><td>Every Monday</td></tr>
+          <tr><td>6</td><td><strong>Actions</strong></td><td>Mark completed actions as <code>Done</code>. Add new actions that came out of the meeting.</td><td>You</td><td>After each meeting</td></tr>
+          <tr><td>7</td><td><strong>Cash_Cycle</strong></td><td>Update <code>Days_On_Order</code> — days of stock currently on order but not yet arrived. Get from procurement file.</td><td>SC / You</td><td>Every Monday</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- KPI EXPLANATIONS -->
+    <div class="section-hdr">
+      <div class="section-title">📊 KPI Cards — What They Mean</div>
+      <div class="section-badge badge-pace">Top of dashboard</div>
+    </div>
+    <div class="table-wrap" style="margin-bottom:20px;">
+      <table>
+        <thead><tr><th>KPI</th><th>Formula</th><th>What it tells you</th><th>Target</th><th>Action if red</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>🎯 Avg Sales Pace</strong></td>
+            <td><code>Actual to Date ÷ (Forecast × Days Elapsed / Days in Month) × 100</code></td>
+            <td>How fast sales are moving vs where they should be TODAY. Automatically adjusts every day — day 14 of 31 = 45% expected.</td>
+            <td style="color:#059669;font-weight:600;">100% by month end</td>
+            <td>Below 75% → sales team needs to push harder on specific SKUs this week</td>
+          </tr>
+          <tr>
+            <td><strong>📉 SKUs Behind Pace</strong></td>
+            <td><code>Count of SKUs where Pace % &lt; 75%</code></td>
+            <td>Number of products not selling fast enough relative to today's date. Each one needs a sales conversation.</td>
+            <td style="color:#059669;font-weight:600;">0 SKUs</td>
+            <td>Call the client for each behind SKU. Understand why. Is it stock or demand?</td>
+          </tr>
+          <tr>
+            <td><strong>📦 Coverage Gaps</strong></td>
+            <td><code>Count where (Warehouse + In-Transit) &lt; May Forecast</code></td>
+            <td>Products without enough physical stock to fulfill the full monthly forecast. Each gap = potential lost sale.</td>
+            <td style="color:#059669;font-weight:600;">0 gaps</td>
+            <td>Place purchase order immediately. Check lead time — if >30 days, order now for next month.</td>
+          </tr>
+          <tr>
+            <td><strong>💰 Avg Inventory Turnover</strong></td>
+            <td><code>Revenue 12m ÷ Avg Inventory Value (excludes SKUs ≥8×)</code></td>
+            <td>How many times per year FoodTec's capital cycles. SKUs ≥8× excluded — they are usually stockouts inflating the number.</td>
+            <td style="color:#059669;font-weight:600;">≥4× per year</td>
+            <td>Below 4× → identify which SKUs are dragging it down. Reduce excess stock on slow movers.</td>
+          </tr>
+          <tr>
+            <td><strong>🚚 Order Fill Rate</strong></td>
+            <td><code>Shipped ÷ Confirmed Orders × 100</code></td>
+            <td>Of everything clients confirmed this week, how much actually shipped? Measures execution reliability.</td>
+            <td style="color:#059669;font-weight:600;">≥95%</td>
+            <td>Below 95% → was it a stock issue or logistics issue? Two different problems, two different fixes.</td>
+          </tr>
+          <tr>
+            <td><strong>⚡ Open Actions</strong></td>
+            <td><code>Count where Status = Open</code></td>
+            <td>Total outstanding tasks. Sub-number shows CRITICAL count. High number means team is behind on follow-through.</td>
+            <td style="color:#059669;font-weight:600;">0 Critical open</td>
+            <td>Review each CRITICAL action in the meeting. Assign owner and due date. No action without an owner.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- TAB EXPLANATIONS -->
+    <div class="section-hdr">
+      <div class="section-title">📑 Tab Pages — How to Read Them</div>
+      <div class="section-badge badge-sc">Click any tab at the top</div>
+    </div>
+    <div class="table-wrap" style="margin-bottom:20px;">
+      <table>
+        <thead><tr><th>Tab</th><th>What it shows</th><th>Key columns to focus on</th><th>Color logic</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>🎯 Monthly Pace</strong></td>
+            <td>Sales progress per SKU vs expected daily pace. Progress bar with black marker = where you should be, colored bar = where you are.</td>
+            <td>Pace %, Gap (units), Gap (USD)</td>
+            <td>🟢 ≥95% on pace · 🟡 75–94% at risk · 🔴 &lt;75% behind · Black = critical</td>
+          </tr>
+          <tr>
+            <td><strong>📦 Coverage</strong></td>
+            <td>For each SKU: warehouse stock + in-transit vs May forecast. Stacked bar shows split between warehouse and in-transit.</td>
+            <td>Coverage %, Gap (units), Notes</td>
+            <td>🟢 ≥100% covered · 🟡 60–99% partial · 🔴 &lt;60% critical gap</td>
+          </tr>
+          <tr>
+            <td><strong>💰 Cash Cycle</strong></td>
+            <td>How many days cash is locked up per SKU (WH + transit + customs + AR ÷ daily consumption). Turnover only shown when SKU is covered.</td>
+            <td>Days Capital Tied, Capital Value (USD), Coverage vs Target</td>
+            <td>🟢 &lt;90 days · 🟡 90–180 days · 🔴 &gt;180 days · Red alert = order required</td>
+          </tr>
+          <tr>
+            <td><strong>🏭 Stock Health</strong></td>
+            <td>Current stock value vs justified target value per SKU. Identifies excess capital and deficits in USD terms.</td>
+            <td>Excess USD, Deficit USD, Aging 60+ USD</td>
+            <td>🟡 Excess = too much cash locked · 🔴 Deficit = stockout risk · Aging = cash at risk of obsolescence</td>
+          </tr>
+          <tr>
+            <td><strong>🚚 Fill Rate</strong></td>
+            <td>Weekly fill rate per SKU. Fill in confirmed orders and shipped quantities each week. Status calculates automatically.</td>
+            <td>Confirmed Orders, Shipped, Fill Rate %</td>
+            <td>🟢 ≥95% on track · 🟡 70–94% at risk · 🔴 &lt;70% miss</td>
+          </tr>
+          <tr>
+            <td><strong>⚡ Actions</strong></td>
+            <td>All open tasks sorted by priority. SC = Supply Chain team. SALES = Sales team. Mark done when complete.</td>
+            <td>Priority, Owner, Due Date, Status</td>
+            <td>🔴 CRITICAL = act today · 🟡 HIGH = this week · 🔵 MEDIUM = this month · ⚪ LOW = monitor</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- COLOUR LEGEND -->
+    <div class="section-hdr">
+      <div class="section-title">🎨 Colour Coding Reference</div>
+      <div class="section-badge badge-sc">Consistent across all tabs</div>
+    </div>
+    <div class="table-wrap" style="margin-bottom:20px;">
+      <table>
+        <thead><tr><th>Color</th><th>Meaning</th><th>Action required</th></tr></thead>
+        <tbody>
+          <tr><td><span class="pill pill-green">🟢 Green</span></td><td>On target, efficient, covered, completed</td><td>None — maintain current approach</td></tr>
+          <tr><td><span class="pill pill-amber">🟡 Amber</span></td><td>At risk, watch closely, partially covered, moderate</td><td>Monitor closely — prepare to act if it moves to red</td></tr>
+          <tr><td><span class="pill pill-red">🔴 Red</span></td><td>Action required immediately, stockout risk, critical</td><td>Act today — assign owner, set due date, update in next meeting</td></tr>
+          <tr><td><span class="pill pill-blue">🔵 Blue</span></td><td>SC (Supply Chain) owner</td><td>Supply Chain team is accountable for this item</td></tr>
+          <tr><td><span class="pill pill-green">🟢 SALES tag</span></td><td>Sales team owner</td><td>Sales team (Asadbek) is accountable for this item</td></tr>
+          <tr><td><span class="pill pill-grey">⚪ Grey</span></td><td>No data available yet</td><td>Update the Google Sheet with the missing value</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- TECHNICAL NOTES -->
+    <div class="section-hdr">
+      <div class="section-title">⚙️ Technical Notes</div>
+      <div class="section-badge badge-sc">For reference</div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Topic</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Data source</strong></td><td>Google Sheets — FoodTec Operations spreadsheet. Sheet ID: 1sf7k4FYXwMx_4IScGYmbL-kHPbf9HVzfAVzP2rF-6EM</td></tr>
+          <tr><td><strong>Live URL</strong></td><td>foodtec-dashboard.vercel.app — password: FoodTec2026</td></tr>
+          <tr><td><strong>How to refresh</strong></td><td>Press F5 or refresh the browser. Data pulls from Google Sheets every time the page loads.</td></tr>
+          <tr><td><strong>How to update this guide</strong></td><td>Ask Claude to update the Guide section in GitHub (kamolmin/foodtec-dashboard → index.html). Changes go live automatically via Vercel within 1–2 minutes.</td></tr>
+          <tr><td><strong>Monthly Pace formula</strong></td><td>Today is day X of Y days in the month. Expected pace = X/Y × Monthly Forecast. Resets automatically on the 1st of each month.</td></tr>
+          <tr><td><strong>Inventory Turnover filter</strong></td><td>Company average excludes SKUs with turnover ≥8× (stockouts and fast outliers that distort the average upward). Target is ≥4× for an importing business with 30–74 day lead times.</td></tr>
+          <tr><td><strong>Safety buffer</strong></td><td>All Target DoH calculations use Lead Time + 7 days safety buffer. This can be adjusted per SKU in the SKU Master tab by updating the Target_DOH_Days column.</td></tr>
+          <tr><td><strong>Cash Cycle — AR Units</strong></td><td>Manual input — units shipped to clients but payment not yet received. Update each Monday from the AR plan file. Will eventually feed automatically from ibox.</td></tr>
+          <tr><td><strong>Rolling DoH average</strong></td><td>Fill in Weekly_DOH_Snapshot_1 through _4 in Cash_Cycle tab each Monday. Dashboard calculates rolling average from however many weeks have data.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
   </div>
 
 </div>
