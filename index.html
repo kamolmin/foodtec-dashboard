@@ -79,6 +79,7 @@
   .pill-grey{background:#F1F5F9;color:#64748B;}
   .pill-blue{background:#EFF6FF;color:#3B82F6;}
   .pill-purple{background:#F5F3FF;color:#7C3AED;}
+  .pill-orange{background:#FFF7ED;color:#EA580C;}
 
   /* BARS */
   .pace-wrap{position:relative;height:8px;background:#E2E8F0;border-radius:4px;min-width:80px;}
@@ -120,6 +121,9 @@
   .spinner{width:28px;height:28px;border:3px solid #E2E8F0;border-top-color:#00C896;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 12px;}
   @keyframes spin{to{transform:rotate(360deg);}}
 
+  /* ORDER ALERT */
+  .order-alert{background:#FEF2F2;border-left:3px solid #EF4444;padding:6px 10px;border-radius:4px;font-size:11px;color:#EF4444;font-weight:600;}
+
   /* PAGE */
   .page{display:none;}
   .page.active{display:block;}
@@ -127,15 +131,8 @@
   /* FOOTER */
   .footer{text-align:center;padding:16px;font-size:10px;color:#94A3B8;}
 
-  /* TURNOVER GAUGE */
-  .turnover-bar{height:6px;border-radius:3px;background:#E2E8F0;overflow:hidden;min-width:60px;}
-  .turnover-fill{height:100%;border-radius:3px;}
-
   /* MOBILE */
-  @media(max-width:900px){
-    .kpi-row{grid-template-columns:repeat(3,1fr);}
-    .three-col{grid-template-columns:1fr 1fr;}
-  }
+  @media(max-width:900px){.kpi-row{grid-template-columns:repeat(3,1fr);}.three-col{grid-template-columns:1fr 1fr;}}
   @media(max-width:768px){
     .nav-sub,.nav-date{display:none;}
     .main{padding:14px 12px;}
@@ -145,10 +142,7 @@
     .tab{padding:11px 12px;font-size:11px;}
     .login-box{padding:32px 24px;margin:16px;}
   }
-  @media(max-width:480px){
-    .kpi-row{grid-template-columns:1fr 1fr;}
-    .kpi-value{font-size:18px;}
-  }
+  @media(max-width:480px){.kpi-row{grid-template-columns:1fr 1fr;}.kpi-value{font-size:18px;}}
 </style>
 </head>
 <body>
@@ -199,10 +193,8 @@
           <div class="section-badge badge-pace">vs today's expected %</div>
         </div>
         <div class="table-wrap">
-          <table>
-            <thead><tr><th>SKU</th><th>Expected</th><th>Actual</th><th>Pace</th></tr></thead>
-            <tbody id="pace-summary"></tbody>
-          </table>
+          <table><thead><tr><th>SKU</th><th>Expected</th><th>Actual</th><th>Pace</th></tr></thead>
+          <tbody id="pace-summary"></tbody></table>
         </div>
       </div>
       <div>
@@ -211,10 +203,8 @@
           <div class="section-badge badge-cov">WH + Transit vs Forecast</div>
         </div>
         <div class="table-wrap">
-          <table>
-            <thead><tr><th>SKU</th><th>Available</th><th>Coverage</th><th>Status</th></tr></thead>
-            <tbody id="coverage-summary"></tbody>
-          </table>
+          <table><thead><tr><th>SKU</th><th>Available</th><th>Coverage</th><th>Status</th></tr></thead>
+          <tbody id="coverage-summary"></tbody></table>
         </div>
       </div>
       <div>
@@ -223,10 +213,8 @@
           <div class="section-badge badge-cash">Most days tied up</div>
         </div>
         <div class="table-wrap">
-          <table>
-            <thead><tr><th>SKU</th><th>Days Tied</th><th>Turnover</th></tr></thead>
-            <tbody id="cash-summary"></tbody>
-          </table>
+          <table><thead><tr><th>SKU</th><th>Days Tied</th><th>Capital USD</th><th>Status</th></tr></thead>
+          <tbody id="cash-summary"></tbody></table>
         </div>
       </div>
     </div>
@@ -237,10 +225,8 @@
           <div class="section-badge badge-sc">Owner: SC</div>
         </div>
         <div class="table-wrap">
-          <table>
-            <thead><tr><th>SKU</th><th>Status</th><th>DoH</th><th>Target</th><th>Gap USD</th></tr></thead>
-            <tbody id="stock-summary"></tbody>
-          </table>
+          <table><thead><tr><th>SKU</th><th>Status</th><th>DoH</th><th>Target</th><th>Gap USD</th></tr></thead>
+          <tbody id="stock-summary"></tbody></table>
         </div>
       </div>
       <div>
@@ -262,14 +248,12 @@
     </div>
     <div class="table-wrap">
       <table>
-        <thead>
-          <tr>
-            <th>SKU Code</th><th>SKU Name</th><th>UOM</th>
-            <th>Monthly Forecast</th><th>Expected by Today</th><th>Actual to Date</th>
-            <th>Pace %</th><th>Gap (units)</th><th>Gap (USD)</th>
-            <th>Progress</th><th>Status</th><th>Notes</th>
-          </tr>
-        </thead>
+        <thead><tr>
+          <th>SKU Code</th><th>SKU Name</th><th>UOM</th>
+          <th>Monthly Forecast</th><th>Expected by Today</th><th>Actual to Date</th>
+          <th>Pace %</th><th>Gap (units)</th><th>Gap (USD)</th>
+          <th>Progress</th><th>Status</th><th>Notes</th>
+        </tr></thead>
         <tbody id="pace-table"></tbody>
       </table>
     </div>
@@ -292,14 +276,12 @@
     </div>
     <div class="table-wrap">
       <table>
-        <thead>
-          <tr>
-            <th>SKU Code</th><th>SKU Name</th><th>UOM</th>
-            <th>May Forecast</th><th>Warehouse</th><th>In-Transit</th><th>Total Available</th>
-            <th>Coverage %</th><th>Gap (units)</th><th>Gap (USD)</th>
-            <th>Stock Split</th><th>Status</th><th>Notes</th>
-          </tr>
-        </thead>
+        <thead><tr>
+          <th>SKU Code</th><th>SKU Name</th><th>UOM</th>
+          <th>May Forecast</th><th>Warehouse</th><th>In-Transit</th><th>Total Available</th>
+          <th>Coverage %</th><th>Gap (units)</th><th>Gap (USD)</th>
+          <th>Stock Split</th><th>Status</th><th>Notes</th>
+        </tr></thead>
         <tbody id="coverage-table"></tbody>
       </table>
     </div>
@@ -308,30 +290,32 @@
   <!-- CASH CYCLE -->
   <div class="page" id="page-cashcycle">
     <div class="info-bar">
-      <div class="info-item">💰 <strong>Days Capital Tied Up</strong> = Total Inventory (WH + Transit + Customs + AR) ÷ Avg Daily Consumption</div>
+      <div class="info-item">💰 <strong>Days Capital Tied</strong> = Total Stock (WH + Transit + Customs + AR) ÷ Avg Daily Consumption</div>
       <div class="info-div"></div>
-      <div class="info-item"><strong>Inventory Turnover</strong> = 365 ÷ Days Capital Tied Up</div>
+      <div class="info-item"><strong>Turnover</strong> = Revenue 12m ÷ Avg Inventory Value — only shown when SKU is covered</div>
       <div class="info-div"></div>
-      <div class="info-item">🔴 <strong>AR Units</strong> = shipped but not yet paid by client — manual input, update weekly</div>
+      <div class="info-item"><strong>Avg Turnover KPI</strong> excludes SKUs ≥8× (stockouts & outliers)</div>
       <div class="info-div"></div>
-      <div class="info-item" style="color:#059669;">Higher turnover = more efficient use of capital</div>
+      <div class="info-item" style="color:#EF4444;">⚠ Order Required = available days below target DoH</div>
+      <div class="info-div"></div>
+      <div class="info-item" style="color:#059669;">Target: ≥4× turnover for importing business</div>
     </div>
     <div class="section-hdr">
       <div class="section-title">Cash Cycle & Inventory Turnover — All SKUs</div>
-      <div class="section-badge badge-cash">Capital efficiency per SKU</div>
+      <div class="section-badge badge-cash">Sorted by days tied up — worst first</div>
     </div>
     <div class="table-wrap">
       <table>
-        <thead>
-          <tr>
-            <th>SKU Code</th><th>SKU Name</th><th>UOM</th>
-            <th>Avg Daily Consumption</th>
-            <th>Warehouse Stock</th><th>In-Transit</th><th>Customs</th>
-            <th>AR (units)</th><th>Total Tied Up</th>
-            <th>Days Capital Tied</th><th>Inventory Turnover</th>
-            <th>Capital Bar</th><th>Efficiency</th><th>Notes</th>
-          </tr>
-        </thead>
+        <thead><tr>
+          <th>SKU Code</th><th>SKU Name</th><th>UOM</th>
+          <th>Avg Daily Qty</th>
+          <th>Warehouse</th><th>In-Transit</th><th>Customs</th><th>On Order</th><th>AR Units</th>
+          <th>Total Tied Up</th><th>Days Capital Tied</th>
+          <th>Capital Value (USD)</th>
+          <th>Coverage vs Target</th>
+          <th>Turnover</th><th>Rolling Avg DoH</th>
+          <th>Efficiency</th><th>Notes</th>
+        </tr></thead>
         <tbody id="cash-table"></tbody>
       </table>
     </div>
@@ -423,10 +407,8 @@ if(localStorage.getItem('ft_auth')==='true'){
   loadAll();
 }
 
-// DATE
 document.getElementById('nav-date').textContent = today.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
 
-// TABS
 function showPage(name,el){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
@@ -434,7 +416,6 @@ function showPage(name,el){
   el.classList.add('active');
 }
 
-// FETCH
 async function fetchSheet(range){
   const res = await fetch(`${BASE}/${range}?key=${API_KEY}`);
   if(!res.ok) throw new Error('Failed to fetch '+range);
@@ -459,7 +440,8 @@ function pill(s){
     'MEDIUM':'pill-blue','LOW':'pill-grey','Behind':'pill-red',
     'Ahead':'pill-green','On Pace':'pill-green','Critical':'pill-red',
     'Covered':'pill-green','Partially Covered':'pill-amber','Not Covered':'pill-red',
-    'Efficient':'pill-green','Moderate':'pill-amber','Slow':'pill-red','Very Slow':'pill-red',
+    'Efficient':'pill-green','Moderate':'pill-amber','Slow':'pill-orange',
+    'Very Slow':'pill-red','Order Required':'pill-red','No Data':'pill-grey',
   };
   return `<span class="pill ${m[s]||'pill-grey'}">${s}</span>`;
 }
@@ -469,8 +451,9 @@ function pc(n){return n>=90?'#059669':n>=70?'#D97706':'#EF4444';}
 function paceColor(p){return p>=95?'#059669':p>=75?'#D97706':'#EF4444';}
 function paceStatus(p){return p>=95?'On Pace':p>=75?'At Risk':p>=50?'Behind':'Critical';}
 function covColor(p){return p>=100?'#059669':p>=60?'#D97706':'#EF4444';}
-function turnColor(t){return t>=12?'#059669':t>=6?'#D97706':'#EF4444';}
-function turnStatus(t){return t>=12?'Efficient':t>=6?'Moderate':t>=3?'Slow':'Very Slow';}
+function turnColor(t){return t>=8?'#059669':t>=4?'#D97706':'#EF4444';}
+function turnStatus(t){return t>=8?'Efficient':t>=4?'Moderate':t>=2?'Slow':'Very Slow';}
+function daysColor(d){return d>180?'#EF4444':d>90?'#D97706':'#059669';}
 function code(v){return `<code style="font-size:10px;background:#F1F5F9;padding:2px 5px;border-radius:3px;">${v}</code>`;}
 
 // LOAD ALL
@@ -482,21 +465,22 @@ async function loadAll(){
       fetchSheet('Forecast!A:N'),
       fetchSheet('Order_Fill_Rate!A:I'),
       fetchSheet('Actions!A:H'),
-      fetchSheet('Cash_Cycle!A:L'),
+      fetchSheet('Cash_Cycle!A:T'),
     ]);
-
     const skuMap={};
     skus.forEach(s=>skuMap[s.SKU_Code]=s);
+    const ltMap={};
+    skus.forEach(s=>ltMap[s.SKU_Code]={leadTime:parseFloat(s.Lead_Time_Days)||0,targetDoh:parseFloat(s.Target_DOH_Days)||0});
 
-    renderKPIs(stock,actions,fillrate,forecast,cashcycle,skuMap);
+    renderKPIs(stock,actions,fillrate,forecast,cashcycle);
     renderPaceSummary(forecast,skuMap);
     renderCoverageSummary(forecast,skuMap);
-    renderCashSummary(cashcycle);
+    renderCashSummary(cashcycle,skuMap,ltMap);
     renderStockSummary(stock);
     renderActionsSummary(actions);
     renderPaceTable(forecast,skuMap);
     renderCoverageTable(forecast,skuMap);
-    renderCashTable(cashcycle,skuMap);
+    renderCashTable(cashcycle,skuMap,ltMap);
     renderStockTable(stock);
     renderFillRateTable(fillrate);
     renderActionsTable(actions);
@@ -505,17 +489,15 @@ async function loadAll(){
 
     const crit=actions.filter(a=>a.Priority==='CRITICAL'&&a.Status==='Open').length;
     document.getElementById('critical-count').textContent=crit+' Critical';
-
   }catch(e){
     document.getElementById('kpi-row').innerHTML=`
       <div style="grid-column:1/-1;background:#FEF2F2;border-radius:10px;padding:20px;color:#EF4444;font-size:13px;">
-        <strong>⚠ Could not load data.</strong><br>
-        <small style="color:#94A3B8;">${e.message}</small>
+        <strong>⚠ Could not load data.</strong><br><small style="color:#94A3B8;">${e.message}</small>
       </div>`;
   }
 }
 
-// PACE INFO
+// PACE INFO BAR
 function renderPaceInfo(){
   document.getElementById('pace-info').innerHTML=`
     <div class="info-item">📅 <strong>${monthName}</strong></div>
@@ -530,7 +512,7 @@ function renderPaceInfo(){
 }
 
 // KPIs
-function renderKPIs(stock,actions,fillrate,forecast,cashcycle,skuMap){
+function renderKPIs(stock,actions,fillrate,forecast,cashcycle){
   const deficits=stock.filter(s=>s.Status==='DEFICIT').length;
   const openActs=actions.filter(a=>a.Status==='Open').length;
   const shipped=fillrate.reduce((s,r)=>s+(parseFloat(r.Shipped)||0),0);
@@ -552,9 +534,14 @@ function renderKPIs(stock,actions,fillrate,forecast,cashcycle,skuMap){
   });
   const avgPace=paceCount>0?Math.round(totalPace/paceCount):0;
 
-  // Average turnover
-  const turns=cashcycle.map(c=>parseFloat(c.Inventory_Turnover)||0).filter(t=>t>0);
-  const avgTurn=turns.length>0?Math.round(turns.reduce((a,b)=>a+b,0)/turns.length*10)/10:0;
+  // Filtered avg turnover — exclude ≥8x and 0
+  const filtered=cashcycle.filter(c=>{
+    const t=parseFloat(c.Inventory_Turnover)||0;
+    return t>0 && t<8;
+  });
+  const avgTurn=filtered.length>0
+    ? Math.round(filtered.reduce((s,c)=>s+(parseFloat(c.Inventory_Turnover)||0),0)/filtered.length*10)/10
+    : 0;
 
   document.getElementById('kpi-row').innerHTML=`
     <div class="kpi-card ${avgPace>=95?'green':avgPace>=75?'amber':'red'}">
@@ -573,10 +560,11 @@ function renderKPIs(stock,actions,fillrate,forecast,cashcycle,skuMap){
       <div class="kpi-value">${notCovered}</div>
       <div class="kpi-sub">SKUs not fully covered</div>
     </div>
-    <div class="kpi-card ${avgTurn>=12?'green':avgTurn>=6?'amber':'red'}">
+    <div class="kpi-card ${avgTurn>=4?'green':avgTurn>=2?'amber':'red'}">
       <div class="kpi-label">Avg Inventory Turnover</div>
       <div class="kpi-value">${avgTurn}×</div>
-      <div class="kpi-sub">Times per year · Target ≥12×</div>
+      <div class="score-bar"><div class="score-fill" style="width:${Math.min(avgTurn/8*100,100)}%;background:${turnColor(avgTurn)};"></div></div>
+      <div class="kpi-sub">Excl. stockouts & outliers ≥8× · Target ≥4×</div>
     </div>
     <div class="kpi-card ${fillPct>=90?'green':fillPct>=70?'amber':'red'}">
       <div class="kpi-label">Order Fill Rate</div>
@@ -591,16 +579,101 @@ function renderKPIs(stock,actions,fillrate,forecast,cashcycle,skuMap){
     </div>`;
 }
 
-// CASH SUMMARY
-function renderCashSummary(cashcycle){
-  const sorted=[...cashcycle].sort((a,b)=>(parseFloat(b.Days_Capital_Tied)||0)-(parseFloat(a.Days_Capital_Tied)||0)).slice(0,7);
+// CASH SUMMARY — dashboard panel
+function renderCashSummary(cashcycle,skuMap,ltMap){
+  // Sort by days capital tied descending — worst first
+  const sorted=[...cashcycle].map(c=>{
+    const wh=parseFloat(c.Warehouse_Stock_Units)||0;
+    const tr=parseFloat(c.InTransit_Stock)||0;
+    const cust=parseFloat(c.Customs_Stock)||0;
+    const onOrd=parseFloat(c.Days_On_Order)||0;
+    const ar=parseFloat(c.AR_Units)||0;
+    const adq=parseFloat(c.Avg_Daily_Qty)||0;
+    const total=wh+tr+cust+ar;
+    const days=adq>0?total/adq:0;
+    const sku=skuMap[c.SKU_Code]||{};
+    const price=parseFloat(sku.Price_USD||c.Price_USD)||0;
+    const capUSD=total*price;
+    const lt=ltMap[c.SKU_Code]||{};
+    const targetDoh=lt.targetDoh||0;
+    const availDays=adq>0?(wh+tr+cust+onOrd*adq)/adq:0;
+    const isCovered=availDays>=targetDoh||targetDoh===0;
+    return{...c,total,days,capUSD,isCovered,availDays,targetDoh};
+  }).filter(c=>c.days>0||c.capUSD>0).sort((a,b)=>b.days-a.days).slice(0,7);
+
   document.getElementById('cash-summary').innerHTML=sorted.map(c=>{
-    const days=parseFloat(c.Days_Capital_Tied)||0;
-    const turn=parseFloat(c.Inventory_Turnover)||0;
+    const status=!c.isCovered?'Order Required':c.days>180?'Very Slow':c.days>90?'Slow':'OK';
+    const dcolor=daysColor(c.days);
     return`<tr>
-      <td><strong>${c.SKU_Name.substring(0,20)}</strong></td>
-      <td><span style="color:${days>100?'#EF4444':days>50?'#D97706':'#059669'};font-weight:700;">${Math.round(days)}d</span></td>
-      <td><span style="color:${turnColor(turn)};font-weight:700;">${turn.toFixed(1)}×</span></td>
+      <td><strong>${c.SKU_Name.substring(0,18)}</strong></td>
+      <td><span style="color:${dcolor};font-weight:700;">${Math.round(c.days)}d</span></td>
+      <td style="font-weight:600;">${c.capUSD>0?'$'+Math.round(c.capUSD).toLocaleString():'—'}</td>
+      <td>${pill(status)}</td>
+    </tr>`;}).join('')||'<tr><td colspan="4" style="text-align:center;color:#94A3B8;padding:16px;">No data</td></tr>';
+}
+
+// CASH TABLE — full page
+function renderCashTable(cashcycle,skuMap,ltMap){
+  const rows=cashcycle.map(c=>{
+    const wh=parseFloat(c.Warehouse_Stock_Units)||0;
+    const tr=parseFloat(c.InTransit_Stock)||0;
+    const cust=parseFloat(c.Customs_Stock)||0;
+    const onOrd=parseFloat(c.Days_On_Order)||0;
+    const ar=parseFloat(c.AR_Units)||0;
+    const adq=parseFloat(c.Avg_Daily_Qty)||0;
+    const total=wh+tr+cust+ar;
+    const days=adq>0?total/adq:0;
+    const sku=skuMap[c.SKU_Code]||{};
+    const price=parseFloat(sku.Price_USD||c.Price_USD)||0;
+    const capUSD=total*price;
+    const lt=ltMap[c.SKU_Code]||{};
+    const targetDoh=lt.targetDoh||(parseFloat(c.Days_To_Turn)||0);
+    // Available days including on-order
+    const availUnits=wh+tr+cust+(onOrd*adq);
+    const availDays=adq>0?availUnits/adq:0;
+    const isCovered=targetDoh===0||availDays>=targetDoh;
+    const covGapDays=isCovered?0:Math.round(targetDoh-availDays);
+    const covGapUnits=isCovered?0:Math.round(covGapDays*adq);
+    // Turnover — only if covered
+    const turn=parseFloat(c.Inventory_Turnover)||0;
+    // Rolling avg DoH
+    const snaps=[c.Weekly_DOH_Snapshot_1,c.Weekly_DOH_Snapshot_2,c.Weekly_DOH_Snapshot_3,c.Weekly_DOH_Snapshot_4]
+      .map(v=>parseFloat(v)).filter(v=>!isNaN(v)&&v>0);
+    const rollingAvg=snaps.length>0?Math.round(snaps.reduce((a,b)=>a+b,0)/snaps.length):null;
+    return{...c,wh,tr,cust,onOrd,ar,adq,total,days,capUSD,isCovered,covGapDays,covGapUnits,turn,rollingAvg,targetDoh};
+  }).sort((a,b)=>b.days-a.days);
+
+  document.getElementById('cash-table').innerHTML=rows.map(c=>{
+    const dcolor=daysColor(c.days);
+    const covCell=c.isCovered
+      ? `<span style="color:#059669;font-size:11px;">✓ Covered (${Math.round(c.availDays||0)}d available)</span>`
+      : `<div class="order-alert">⚠ Order Required<br>${c.covGapDays}d short · ${c.covGapUnits.toLocaleString()} ${c.UOM} needed</div>`;
+    const turnCell=!c.isCovered
+      ? `<span style="color:#EF4444;font-size:11px;">— (not covered)</span>`
+      : c.turn>0
+        ? `<span style="color:${turnColor(c.turn)};font-weight:700;">${c.turn.toFixed(1)}×</span> ${pill(turnStatus(c.turn))}`
+        : '—';
+    const rollingCell=c.rollingAvg!==null
+      ? `${c.rollingAvg}d <span style="font-size:9px;color:#94A3B8;">(${c.snaps?.length||0}wk avg)</span>`
+      : '<span style="color:#94A3B8;font-size:10px;">Fill weekly snapshots</span>';
+    return`<tr>
+      <td>${code(c.SKU_Code)}</td>
+      <td><strong>${c.SKU_Name}</strong></td>
+      <td>${c.UOM}</td>
+      <td>${c.adq>0?c.adq.toLocaleString():'—'}</td>
+      <td style="color:#059669;">${c.wh>0?c.wh.toLocaleString():'—'}</td>
+      <td style="color:#F59E0B;">${c.tr>0?c.tr.toLocaleString():'—'}</td>
+      <td style="color:#3B82F6;">${c.cust>0?c.cust.toLocaleString():'—'}</td>
+      <td style="color:#7C3AED;">${c.onOrd>0?c.onOrd+'d':'—'}</td>
+      <td style="color:#EF4444;">${c.ar>0?c.ar.toLocaleString():'—'}</td>
+      <td><strong>${c.total>0?c.total.toLocaleString():'—'}</strong></td>
+      <td><span style="color:${dcolor};font-weight:700;font-size:14px;">${c.days>0?Math.round(c.days):'—'}</span>${c.days>0?'<span style="color:#94A3B8;font-size:10px;"> days</span>':''}</td>
+      <td style="font-weight:600;">${c.capUSD>0?'$'+Math.round(c.capUSD).toLocaleString():'—'}</td>
+      <td>${covCell}</td>
+      <td>${turnCell}</td>
+      <td>${rollingCell}</td>
+      <td>${c.days>0?pill(c.isCovered?(c.turn>=8?'Efficient':c.turn>=4?'Moderate':c.turn>=2?'Slow':c.days>0?'Very Slow':'No Data'):'Order Required'):'—'}</td>
+      <td style="font-size:11px;color:#64748B;">${c.Notes||''}</td>
     </tr>`;}).join('');
 }
 
@@ -645,6 +718,35 @@ function renderCoverageSummary(forecast,skuMap){
       <td><span style="color:${covColor(covPct)};font-weight:700;">${covPct}%</span></td>
       <td>${pill(f.Coverage_Status||'Not Covered')}</td>
     </tr>`;}).join('')||'<tr><td colspan="4" style="text-align:center;color:#94A3B8;padding:16px;">All covered ✓</td></tr>';
+}
+
+// STOCK SUMMARY
+function renderStockSummary(stock){
+  document.getElementById('stock-summary').innerHTML=stock.filter(s=>s.Status==='DEFICIT'||s.Status==='EXCESS').slice(0,6).map(s=>`
+    <tr>
+      <td><strong>${s.SKU_Name.substring(0,18)}</strong></td>
+      <td>${pill(s.Status)}</td>
+      <td>${s.Actual_DOH_Days||'0'}d</td>
+      <td>${s.Target_DOH_Days}d</td>
+      <td style="color:${s.Status==='DEFICIT'?'#EF4444':'#F59E0B'};font-weight:600;">
+        ${s.Status==='DEFICIT'?'-'+fmtUSD(s.Deficit_USD):'+'+fmtUSD(s.Excess_USD)}
+      </td>
+    </tr>`).join('');
+}
+
+// ACTIONS SUMMARY
+function renderActionsSummary(actions){
+  const order=['CRITICAL','HIGH','MEDIUM','LOW'];
+  const sorted=[...actions].sort((a,b)=>order.indexOf(a.Priority)-order.indexOf(b.Priority));
+  document.getElementById('actions-summary').innerHTML=sorted.filter(a=>a.Status==='Open').slice(0,6).map(a=>`
+    <div class="action-item">
+      <span class="action-owner ${a.Owner==='SC'?'owner-sc':'owner-sales'}">${a.Owner}</span>
+      <div style="flex:1;">
+        <div class="action-text">${a.Action}</div>
+        <div class="action-sku">${a.SKU_Name}</div>
+      </div>
+      <div class="action-priority priority-${a.Priority.toLowerCase()}">${a.Priority}</div>
+    </div>`).join('');
 }
 
 // PACE TABLE
@@ -720,84 +822,6 @@ function renderCoverageTable(forecast,skuMap){
       <td>${pill(status)}</td>
       <td style="font-size:11px;color:${status==='Not Covered'?'#EF4444':'#64748B'};font-weight:${status==='Not Covered'?'600':'400'};">${f.Notes||''}</td>
     </tr>`;}).join('');
-}
-
-// CASH CYCLE TABLE
-function renderCashTable(cashcycle,skuMap){
-  // Find max days for bar scaling
-  const maxDays=Math.max(...cashcycle.map(c=>parseFloat(c.Days_Capital_Tied)||0),1);
-
-  document.getElementById('cash-table').innerHTML=cashcycle.sort((a,b)=>(parseFloat(b.Days_Capital_Tied)||0)-(parseFloat(a.Days_Capital_Tied)||0)).map(c=>{
-    const days=parseFloat(c.Days_Capital_Tied)||0;
-    const turn=parseFloat(c.Inventory_Turnover)||0;
-    const wh=parseFloat(c.Warehouse_Stock)||0;
-    const tr=parseFloat(c.InTransit_Stock)||0;
-    const cust=parseFloat(c.Customs_Stock)||0;
-    const ar=parseFloat(c.AR_Units)||0;
-    const total=parseFloat(c.Total_Tied_Up)||0;
-    const sku=skuMap[c.SKU_Code]||{};
-    const price=parseFloat(sku.Price_USD)||0;
-    const totalUSD=total*price;
-    const barPct=maxDays>0?Math.min(days/maxDays*100,100):0;
-    const whPct=total>0?wh/total*100:0;
-    const trPct=total>0?tr/total*100:0;
-    const custPct=total>0?cust/total*100:0;
-    const arPct=total>0?ar/total*100:0;
-    const status=turnStatus(turn);
-    const dcolor=days>100?'#EF4444':days>50?'#D97706':'#059669';
-    return`<tr>
-      <td>${code(c.SKU_Code)}</td>
-      <td><strong>${c.SKU_Name}</strong></td>
-      <td>${c.UOM}</td>
-      <td>${fmt(c.Avg_Daily_Consumption)}</td>
-      <td style="color:#059669;">${wh>0?wh.toLocaleString():'—'}</td>
-      <td style="color:#F59E0B;">${tr>0?tr.toLocaleString():'—'}</td>
-      <td style="color:#3B82F6;">${cust>0?cust.toLocaleString():'—'}</td>
-      <td style="color:#EF4444;">${ar>0?ar.toLocaleString():'—'}</td>
-      <td><strong>${total>0?total.toLocaleString():'—'}</strong>${totalUSD>0?`<br><span style="font-size:10px;color:#94A3B8;">$${Math.round(totalUSD).toLocaleString()}</span>`:''}</td>
-      <td><span style="color:${dcolor};font-weight:700;font-size:14px;">${Math.round(days)}</span><span style="color:#94A3B8;font-size:10px;"> days</span></td>
-      <td><span style="color:${turnColor(turn)};font-weight:700;font-size:14px;">${turn.toFixed(1)}</span><span style="color:#94A3B8;font-size:10px;">× /yr</span></td>
-      <td style="min-width:100px;">
-        <div class="stack-bar" style="height:10px;">
-          <div class="stack-wh" style="width:${whPct}%;"></div>
-          <div class="stack-tr" style="width:${trPct}%;"></div>
-          <div style="width:${custPct}%;background:#3B82F6;"></div>
-          <div class="stack-ar" style="width:${arPct}%;"></div>
-        </div>
-        <div style="font-size:9px;color:#94A3B8;margin-top:2px;">🟢WH 🟡TR 🔵Cust 🔴AR</div>
-      </td>
-      <td>${pill(status)}</td>
-      <td style="font-size:11px;color:#64748B;">${c.Notes||''}</td>
-    </tr>`;}).join('');
-}
-
-// STOCK SUMMARY
-function renderStockSummary(stock){
-  document.getElementById('stock-summary').innerHTML=stock.filter(s=>s.Status==='DEFICIT'||s.Status==='EXCESS').slice(0,6).map(s=>`
-    <tr>
-      <td><strong>${s.SKU_Name.substring(0,18)}</strong></td>
-      <td>${pill(s.Status)}</td>
-      <td>${s.Actual_DOH_Days||'0'}d</td>
-      <td>${s.Target_DOH_Days}d</td>
-      <td style="color:${s.Status==='DEFICIT'?'#EF4444':'#F59E0B'};font-weight:600;">
-        ${s.Status==='DEFICIT'?'-'+fmtUSD(s.Deficit_USD):'+'+fmtUSD(s.Excess_USD)}
-      </td>
-    </tr>`).join('');
-}
-
-// ACTIONS SUMMARY
-function renderActionsSummary(actions){
-  const order=['CRITICAL','HIGH','MEDIUM','LOW'];
-  const sorted=[...actions].sort((a,b)=>order.indexOf(a.Priority)-order.indexOf(b.Priority));
-  document.getElementById('actions-summary').innerHTML=sorted.filter(a=>a.Status==='Open').slice(0,6).map(a=>`
-    <div class="action-item">
-      <span class="action-owner ${a.Owner==='SC'?'owner-sc':'owner-sales'}">${a.Owner}</span>
-      <div style="flex:1;">
-        <div class="action-text">${a.Action}</div>
-        <div class="action-sku">${a.SKU_Name}</div>
-      </div>
-      <div class="action-priority priority-${a.Priority.toLowerCase()}">${a.Priority}</div>
-    </div>`).join('');
 }
 
 // STOCK TABLE
