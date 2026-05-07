@@ -6,11 +6,10 @@
 <title>FoodTec Operations Dashboard</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap');
-
   *{margin:0;padding:0;box-sizing:border-box;}
   body{font-family:'Inter',sans-serif;background:#F4F6F9;color:#1A1A2E;min-height:100vh;}
 
-  /* ── LOGIN ── */
+  /* LOGIN */
   #login-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:#0F1B2D;display:flex;align-items:center;justify-content:center;z-index:9999;}
   .login-box{background:#1E2D3D;border-radius:16px;padding:40px 36px;width:100%;max-width:360px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.4);}
   .login-logo{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:#fff;margin-bottom:4px;}
@@ -18,11 +17,11 @@
   .login-sub{font-size:12px;color:#64748B;margin-bottom:28px;letter-spacing:1px;text-transform:uppercase;}
   .login-input{width:100%;padding:13px 16px;border-radius:8px;border:1px solid #2E4A6B;background:#0F1B2D;color:#fff;font-size:14px;margin-bottom:12px;outline:none;transition:border 0.2s;}
   .login-input:focus{border-color:#00C896;}
-  .login-btn{width:100%;padding:13px;border-radius:8px;background:#00C896;border:none;color:#0F1B2D;font-weight:700;font-size:14px;cursor:pointer;transition:opacity 0.2s;}
+  .login-btn{width:100%;padding:13px;border-radius:8px;background:#00C896;border:none;color:#0F1B2D;font-weight:700;font-size:14px;cursor:pointer;}
   .login-btn:hover{opacity:0.9;}
   .login-error{color:#EF4444;font-size:12px;margin-top:8px;display:none;}
 
-  /* ── TOP NAV ── */
+  /* NAV */
   .nav{background:#0F1B2D;padding:0 24px;height:52px;display:flex;align-items:center;justify-content:space-between;}
   .nav-brand{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#fff;}
   .nav-brand span{color:#00C896;}
@@ -31,35 +30,39 @@
   .nav-date{font-size:11px;color:#90B4D8;}
   .nav-badge{background:#EF4444;color:#fff;font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;white-space:nowrap;}
 
-  /* ── TABS ── */
+  /* TABS */
   .tabs{background:#fff;border-bottom:1px solid #E2E8F0;padding:0 24px;display:flex;gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch;}
   .tabs::-webkit-scrollbar{display:none;}
   .tab{padding:13px 16px;font-size:12px;font-weight:500;color:#64748B;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.15s;white-space:nowrap;flex-shrink:0;}
   .tab:hover{color:#0F1B2D;}
   .tab.active{color:#0F1B2D;border-bottom-color:#00C896;font-weight:600;}
 
-  /* ── MAIN ── */
-  .main{padding:20px 24px;max-width:1400px;margin:0 auto;}
+  /* MAIN */
+  .main{padding:20px 24px;max-width:1440px;margin:0 auto;}
 
-  /* ── KPI CARDS ── */
-  .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;}
-  .kpi-card{background:#fff;border-radius:10px;padding:18px;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
-  .kpi-label{font-size:10px;font-weight:600;color:#64748B;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;}
-  .kpi-value{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;line-height:1;}
+  /* KPI */
+  .kpi-row{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:20px;}
+  .kpi-card{background:#fff;border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+  .kpi-label{font-size:10px;font-weight:600;color:#64748B;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:8px;}
+  .kpi-value{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;line-height:1;}
   .kpi-sub{font-size:10px;color:#94A3B8;margin-top:5px;}
   .kpi-card.green .kpi-value{color:#00C896;}
   .kpi-card.red .kpi-value{color:#EF4444;}
   .kpi-card.amber .kpi-value{color:#F59E0B;}
-  .kpi-card.navy .kpi-value{color:#0F1B2D;}
+  .kpi-card.blue .kpi-value{color:#3B82F6;}
+  .kpi-card.purple .kpi-value{color:#7C3AED;}
 
-  /* ── SECTION HEADER ── */
+  /* SECTION */
   .section-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;}
   .section-title{font-size:13px;font-weight:700;color:#0F1B2D;}
   .section-badge{font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;}
   .badge-sc{background:#EFF6FF;color:#3B82F6;}
   .badge-sales{background:#F0FDF9;color:#00C896;}
+  .badge-pace{background:#FFF7ED;color:#EA580C;}
+  .badge-cov{background:#F5F3FF;color:#7C3AED;}
+  .badge-cash{background:#FFF1F2;color:#BE123C;}
 
-  /* ── TABLE ── */
+  /* TABLE */
   .table-wrap{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);margin-bottom:20px;overflow-x:auto;}
   table{width:100%;border-collapse:collapse;min-width:500px;}
   th{background:#0F1B2D;color:#fff;font-size:11px;font-weight:600;padding:10px 12px;text-align:left;letter-spacing:0.5px;white-space:nowrap;}
@@ -68,18 +71,31 @@
   tr:nth-child(even) td{background:#F8FAFC;}
   tr:hover td{background:#F0FDF9;}
 
-  /* ── STATUS PILLS ── */
+  /* PILLS */
   .pill{display:inline-block;padding:2px 9px;border-radius:20px;font-size:10px;font-weight:700;white-space:nowrap;}
   .pill-red{background:#FEF2F2;color:#EF4444;}
   .pill-green{background:#F0FDF9;color:#059669;}
   .pill-amber{background:#FFFBEB;color:#D97706;}
   .pill-grey{background:#F1F5F9;color:#64748B;}
   .pill-blue{background:#EFF6FF;color:#3B82F6;}
+  .pill-purple{background:#F5F3FF;color:#7C3AED;}
 
-  /* ── GRID LAYOUTS ── */
+  /* BARS */
+  .pace-wrap{position:relative;height:8px;background:#E2E8F0;border-radius:4px;min-width:80px;}
+  .pace-fill{height:100%;border-radius:4px;}
+  .pace-marker{position:absolute;top:-3px;width:2px;height:14px;background:#0F1B2D;border-radius:1px;}
+  .stack-bar{display:flex;height:8px;border-radius:4px;overflow:hidden;background:#E2E8F0;min-width:80px;}
+  .stack-wh{background:#00C896;}
+  .stack-tr{background:#F59E0B;}
+  .stack-ar{background:#EF4444;}
+  .score-bar{height:5px;background:#E2E8F0;border-radius:3px;overflow:hidden;margin-top:4px;}
+  .score-fill{height:100%;border-radius:3px;}
+
+  /* GRID */
   .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
+  .three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:20px;}
 
-  /* ── ACTIONS ── */
+  /* ACTIONS */
   .action-item{padding:12px 14px;border-bottom:1px solid #F1F5F9;display:flex;gap:10px;align-items:flex-start;}
   .action-item:last-child{border-bottom:none;}
   .action-owner{font-size:9px;font-weight:700;padding:3px 7px;border-radius:4px;white-space:nowrap;margin-top:2px;flex-shrink:0;}
@@ -93,48 +109,51 @@
   .priority-medium{color:#3B82F6;}
   .priority-low{color:#64748B;}
 
-  /* ── LOADING ── */
+  /* INFO BAR */
+  .info-bar{background:#fff;border-radius:10px;padding:12px 20px;margin-bottom:20px;display:flex;align-items:center;gap:16px;box-shadow:0 1px 4px rgba(0,0,0,0.06);flex-wrap:wrap;}
+  .info-item{font-size:12px;color:#64748B;}
+  .info-item strong{color:#0F1B2D;}
+  .info-div{width:1px;height:18px;background:#E2E8F0;flex-shrink:0;}
+
+  /* LOADING */
   .loading{text-align:center;padding:40px;color:#94A3B8;font-size:13px;}
   .spinner{width:28px;height:28px;border:3px solid #E2E8F0;border-top-color:#00C896;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 12px;}
   @keyframes spin{to{transform:rotate(360deg);}}
 
-  /* ── SCORE BAR ── */
-  .score-bar{height:5px;background:#E2E8F0;border-radius:3px;overflow:hidden;margin-top:4px;}
-  .score-fill{height:100%;border-radius:3px;transition:width 0.5s;}
-
-  /* ── PAGE SECTIONS ── */
+  /* PAGE */
   .page{display:none;}
   .page.active{display:block;}
 
-  /* ── FOOTER ── */
+  /* FOOTER */
   .footer{text-align:center;padding:16px;font-size:10px;color:#94A3B8;}
 
-  /* ── MOBILE RESPONSIVE ── */
+  /* TURNOVER GAUGE */
+  .turnover-bar{height:6px;border-radius:3px;background:#E2E8F0;overflow:hidden;min-width:60px;}
+  .turnover-fill{height:100%;border-radius:3px;}
+
+  /* MOBILE */
+  @media(max-width:900px){
+    .kpi-row{grid-template-columns:repeat(3,1fr);}
+    .three-col{grid-template-columns:1fr 1fr;}
+  }
   @media(max-width:768px){
-    .nav-sub{display:none;}
-    .nav-date{display:none;}
+    .nav-sub,.nav-date{display:none;}
     .main{padding:14px 12px;}
     .kpi-row{grid-template-columns:1fr 1fr;gap:10px;}
     .kpi-value{font-size:20px;}
-    .kpi-label{font-size:9px;}
-    .two-col{grid-template-columns:1fr;}
+    .two-col,.three-col{grid-template-columns:1fr;}
     .tab{padding:11px 12px;font-size:11px;}
     .login-box{padding:32px 24px;margin:16px;}
-    th{font-size:10px;padding:8px 10px;}
-    td{font-size:11px;padding:8px 10px;}
   }
-
   @media(max-width:480px){
     .kpi-row{grid-template-columns:1fr 1fr;}
     .kpi-value{font-size:18px;}
-    .nav-badge{font-size:9px;padding:2px 8px;}
-    .nav-brand{font-size:16px;}
   }
 </style>
 </head>
 <body>
 
-<!-- LOGIN SCREEN -->
+<!-- LOGIN -->
 <div id="login-screen">
   <div class="login-box">
     <div class="login-logo">Food<span>Tec</span></div>
@@ -157,8 +176,10 @@
 <!-- TABS -->
 <div class="tabs">
   <div class="tab active" onclick="showPage('dashboard',this)">📊 Dashboard</div>
-  <div class="tab" onclick="showPage('stock',this)">📦 Stock Health</div>
-  <div class="tab" onclick="showPage('forecast',this)">📈 Forecast</div>
+  <div class="tab" onclick="showPage('pace',this)">🎯 Monthly Pace</div>
+  <div class="tab" onclick="showPage('coverage',this)">📦 Coverage</div>
+  <div class="tab" onclick="showPage('cashcycle',this)">💰 Cash Cycle</div>
+  <div class="tab" onclick="showPage('stock',this)">🏭 Stock Health</div>
   <div class="tab" onclick="showPage('fillrate',this)">🚚 Fill Rate</div>
   <div class="tab" onclick="showPage('actions',this)">⚡ Actions</div>
   <div class="tab" onclick="showPage('skus',this)">🗂 SKU Master</div>
@@ -171,56 +192,152 @@
     <div class="kpi-row" id="kpi-row">
       <div style="grid-column:1/-1;" class="loading"><div class="spinner"></div>Loading data...</div>
     </div>
+    <div class="three-col">
+      <div>
+        <div class="section-hdr">
+          <div class="section-title">🎯 Monthly Pace — Behind</div>
+          <div class="section-badge badge-pace">vs today's expected %</div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>SKU</th><th>Expected</th><th>Actual</th><th>Pace</th></tr></thead>
+            <tbody id="pace-summary"></tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="section-hdr">
+          <div class="section-title">📦 Coverage — Gaps</div>
+          <div class="section-badge badge-cov">WH + Transit vs Forecast</div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>SKU</th><th>Available</th><th>Coverage</th><th>Status</th></tr></thead>
+            <tbody id="coverage-summary"></tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="section-hdr">
+          <div class="section-title">💰 Cash Cycle — Worst</div>
+          <div class="section-badge badge-cash">Most days tied up</div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>SKU</th><th>Days Tied</th><th>Turnover</th></tr></thead>
+            <tbody id="cash-summary"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
     <div class="two-col">
       <div>
         <div class="section-hdr">
-          <div class="section-title">Stock Health — Top Issues</div>
+          <div class="section-title">🏭 Stock Health — Issues</div>
           <div class="section-badge badge-sc">Owner: SC</div>
         </div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>SKU</th><th>Status</th><th>Actual DoH</th><th>Target DoH</th><th>Deficit / Excess</th></tr></thead>
+            <thead><tr><th>SKU</th><th>Status</th><th>DoH</th><th>Target</th><th>Gap USD</th></tr></thead>
             <tbody id="stock-summary"></tbody>
           </table>
         </div>
       </div>
       <div>
         <div class="section-hdr">
-          <div class="section-title">Actions Required</div>
+          <div class="section-title">⚡ Actions Required</div>
           <div class="section-badge badge-sc">Critical first</div>
         </div>
         <div class="table-wrap" id="actions-summary"></div>
       </div>
     </div>
-    <div class="two-col">
-      <div>
-        <div class="section-hdr">
-          <div class="section-title">Forecast Accuracy — May MTD</div>
-          <div class="section-badge badge-sales">Owner: Sales</div>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>SKU</th><th>May Forecast</th><th>Actual</th><th>Attainment</th></tr></thead>
-            <tbody id="forecast-summary"></tbody>
-          </table>
-        </div>
-      </div>
-      <div>
-        <div class="section-hdr">
-          <div class="section-title">Order Fill Rate — This Week</div>
-          <div class="section-badge badge-sc">Owner: SC</div>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>SKU</th><th>Confirmed</th><th>Shipped</th><th>Fill Rate</th><th>Status</th></tr></thead>
-            <tbody id="fillrate-summary"></tbody>
-          </table>
-        </div>
-      </div>
+  </div>
+
+  <!-- MONTHLY PACE -->
+  <div class="page" id="page-pace">
+    <div class="info-bar" id="pace-info"></div>
+    <div class="section-hdr">
+      <div class="section-title">Monthly Sales Pace — All SKUs</div>
+      <div class="section-badge badge-pace">Black marker = where you should be · Bar = where you are</div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>SKU Code</th><th>SKU Name</th><th>UOM</th>
+            <th>Monthly Forecast</th><th>Expected by Today</th><th>Actual to Date</th>
+            <th>Pace %</th><th>Gap (units)</th><th>Gap (USD)</th>
+            <th>Progress</th><th>Status</th><th>Notes</th>
+          </tr>
+        </thead>
+        <tbody id="pace-table"></tbody>
+      </table>
     </div>
   </div>
 
-  <!-- STOCK -->
+  <!-- COVERAGE -->
+  <div class="page" id="page-coverage">
+    <div class="info-bar">
+      <div class="info-item">🟢 <strong>Warehouse</strong> — on hand</div>
+      <div class="info-div"></div>
+      <div class="info-item">🟡 <strong>In-Transit</strong> — ordered & coming</div>
+      <div class="info-div"></div>
+      <div class="info-item"><strong>Coverage % = Total Available ÷ May Forecast × 100</strong></div>
+      <div class="info-div"></div>
+      <div class="info-item" style="color:#EF4444;">Below 100% = action required</div>
+    </div>
+    <div class="section-hdr">
+      <div class="section-title">May Forecast Coverage — All SKUs</div>
+      <div class="section-badge badge-cov">Owner: Supply Chain</div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>SKU Code</th><th>SKU Name</th><th>UOM</th>
+            <th>May Forecast</th><th>Warehouse</th><th>In-Transit</th><th>Total Available</th>
+            <th>Coverage %</th><th>Gap (units)</th><th>Gap (USD)</th>
+            <th>Stock Split</th><th>Status</th><th>Notes</th>
+          </tr>
+        </thead>
+        <tbody id="coverage-table"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- CASH CYCLE -->
+  <div class="page" id="page-cashcycle">
+    <div class="info-bar">
+      <div class="info-item">💰 <strong>Days Capital Tied Up</strong> = Total Inventory (WH + Transit + Customs + AR) ÷ Avg Daily Consumption</div>
+      <div class="info-div"></div>
+      <div class="info-item"><strong>Inventory Turnover</strong> = 365 ÷ Days Capital Tied Up</div>
+      <div class="info-div"></div>
+      <div class="info-item">🔴 <strong>AR Units</strong> = shipped but not yet paid by client — manual input, update weekly</div>
+      <div class="info-div"></div>
+      <div class="info-item" style="color:#059669;">Higher turnover = more efficient use of capital</div>
+    </div>
+    <div class="section-hdr">
+      <div class="section-title">Cash Cycle & Inventory Turnover — All SKUs</div>
+      <div class="section-badge badge-cash">Capital efficiency per SKU</div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>SKU Code</th><th>SKU Name</th><th>UOM</th>
+            <th>Avg Daily Consumption</th>
+            <th>Warehouse Stock</th><th>In-Transit</th><th>Customs</th>
+            <th>AR (units)</th><th>Total Tied Up</th>
+            <th>Days Capital Tied</th><th>Inventory Turnover</th>
+            <th>Capital Bar</th><th>Efficiency</th><th>Notes</th>
+          </tr>
+        </thead>
+        <tbody id="cash-table"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- STOCK HEALTH -->
   <div class="page" id="page-stock">
     <div class="section-hdr">
       <div class="section-title">Stock Health — All SKUs</div>
@@ -230,20 +347,6 @@
       <table>
         <thead><tr><th>SKU Code</th><th>SKU Name</th><th>Status</th><th>Target DoH</th><th>Actual DoH</th><th>Current Stock USD</th><th>Target Stock USD</th><th>Excess USD</th><th>Deficit USD</th><th>Aging 60+ USD</th><th>Notes</th></tr></thead>
         <tbody id="stock-table"></tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- FORECAST -->
-  <div class="page" id="page-forecast">
-    <div class="section-hdr">
-      <div class="section-title">Forecast Accuracy — May 2026</div>
-      <div class="section-badge badge-sales">Owner: Sales Team</div>
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>SKU Code</th><th>SKU Name</th><th>UOM</th><th>May Forecast</th><th>May Actual</th><th>Attainment</th><th>June Forecast</th><th>Source</th><th>Notes</th></tr></thead>
-        <tbody id="forecast-table"></tbody>
       </table>
     </div>
   </div>
@@ -286,8 +389,7 @@
   </div>
 
 </div>
-
-<div class="footer">FoodTec Operations Dashboard · Data from Google Sheets · Updates on refresh</div>
+<div class="footer">FoodTec Operations Dashboard · Data from Google Sheets · Updates on refresh · Password protected</div>
 
 <script>
 const SHEET_ID = '1sf7k4FYXwMx_4IScGYmbL-kHPbf9HVzfAVzP2rF-6EM';
@@ -295,140 +397,192 @@ const API_KEY  = 'AIzaSyCqGUl8mE8ZhWqdF1SHSC7za4SDyO4ZtUo';
 const BASE     = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values`;
 const PASSWORD = 'FoodTec2026';
 
-// ── LOGIN ─────────────────────────────────────────────────────────────
-function checkPassword() {
+// DATE & PACE
+const today       = new Date();
+const dayOfMonth  = today.getDate();
+const daysInMonth = new Date(today.getFullYear(), today.getMonth()+1, 0).getDate();
+const monthPct    = dayOfMonth / daysInMonth;
+const monthName   = today.toLocaleString('en-GB',{month:'long',year:'numeric'});
+
+// LOGIN
+function checkPassword(){
   const pwd = document.getElementById('pwd-input').value;
-  if (pwd === PASSWORD) {
-    localStorage.setItem('ft_auth', 'true');
-    document.getElementById('login-screen').style.display = 'none';
+  if(pwd === PASSWORD){
+    localStorage.setItem('ft_auth','true');
+    document.getElementById('login-screen').style.display='none';
     loadAll();
   } else {
-    document.getElementById('pwd-error').style.display = 'block';
-    document.getElementById('pwd-input').value = '';
+    document.getElementById('pwd-error').style.display='block';
+    document.getElementById('pwd-input').value='';
     document.getElementById('pwd-input').focus();
   }
 }
-document.getElementById('pwd-input').addEventListener('keypress', function(e) {
-  if (e.key === 'Enter') checkPassword();
-});
-
-// Check if already logged in
-if (localStorage.getItem('ft_auth') === 'true') {
-  document.getElementById('login-screen').style.display = 'none';
+document.getElementById('pwd-input').addEventListener('keypress',e=>{if(e.key==='Enter')checkPassword();});
+if(localStorage.getItem('ft_auth')==='true'){
+  document.getElementById('login-screen').style.display='none';
   loadAll();
 }
 
-// ── DATE ─────────────────────────────────────────────────────────────
-document.getElementById('nav-date').textContent = new Date().toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+// DATE
+document.getElementById('nav-date').textContent = today.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
 
-// ── TABS ─────────────────────────────────────────────────────────────
-function showPage(name, el) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('page-' + name).classList.add('active');
+// TABS
+function showPage(name,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
   el.classList.add('active');
 }
 
-// ── FETCH ─────────────────────────────────────────────────────────────
-async function fetchSheet(range) {
+// FETCH
+async function fetchSheet(range){
   const res = await fetch(`${BASE}/${range}?key=${API_KEY}`);
-  if (!res.ok) throw new Error('Failed to fetch ' + range);
+  if(!res.ok) throw new Error('Failed to fetch '+range);
   const data = await res.json();
-  const rows = data.values || [];
-  if (rows.length < 2) return [];
+  const rows = data.values||[];
+  if(rows.length<2) return [];
   const headers = rows[0];
-  return rows.slice(1).map(row => {
-    const obj = {};
-    headers.forEach((h, i) => obj[h] = row[i] || '');
+  return rows.slice(1).map(row=>{
+    const obj={};
+    headers.forEach((h,i)=>obj[h]=row[i]||'');
     return obj;
   });
 }
 
-// ── HELPERS ───────────────────────────────────────────────────────────
-function pill(status) {
-  const map = {
+// HELPERS
+function pill(s){
+  const m={
     'DEFICIT':'pill-red','EXCESS':'pill-amber','OK':'pill-green',
     'On Track':'pill-green','At Risk':'pill-amber','Miss':'pill-red',
     'Stockout':'pill-red','No Orders':'pill-grey','Open':'pill-blue',
     'Done':'pill-green','CRITICAL':'pill-red','HIGH':'pill-amber',
-    'MEDIUM':'pill-blue','LOW':'pill-grey',
+    'MEDIUM':'pill-blue','LOW':'pill-grey','Behind':'pill-red',
+    'Ahead':'pill-green','On Pace':'pill-green','Critical':'pill-red',
+    'Covered':'pill-green','Partially Covered':'pill-amber','Not Covered':'pill-red',
+    'Efficient':'pill-green','Moderate':'pill-amber','Slow':'pill-red','Very Slow':'pill-red',
   };
-  return `<span class="pill ${map[status]||'pill-grey'}">${status}</span>`;
+  return `<span class="pill ${m[s]||'pill-grey'}">${s}</span>`;
 }
-function fmt(val) {
-  const n = parseFloat(val);
-  return isNaN(n) ? (val||'—') : n.toLocaleString();
-}
-function fmtUSD(val) {
-  const n = parseFloat(val);
-  return (!isNaN(n) && n > 0) ? '$' + n.toLocaleString() : '—';
-}
-function pctColor(n) {
-  return n >= 90 ? '#059669' : n >= 60 ? '#D97706' : '#EF4444';
-}
+function fmt(v){const n=parseFloat(v);return isNaN(n)?(v||'—'):n.toLocaleString();}
+function fmtUSD(v){const n=parseFloat(v);return(!isNaN(n)&&n>0)?'$'+n.toLocaleString():'—';}
+function pc(n){return n>=90?'#059669':n>=70?'#D97706':'#EF4444';}
+function paceColor(p){return p>=95?'#059669':p>=75?'#D97706':'#EF4444';}
+function paceStatus(p){return p>=95?'On Pace':p>=75?'At Risk':p>=50?'Behind':'Critical';}
+function covColor(p){return p>=100?'#059669':p>=60?'#D97706':'#EF4444';}
+function turnColor(t){return t>=12?'#059669':t>=6?'#D97706':'#EF4444';}
+function turnStatus(t){return t>=12?'Efficient':t>=6?'Moderate':t>=3?'Slow':'Very Slow';}
+function code(v){return `<code style="font-size:10px;background:#F1F5F9;padding:2px 5px;border-radius:3px;">${v}</code>`;}
 
-// ── LOAD ──────────────────────────────────────────────────────────────
-async function loadAll() {
-  try {
-    const [skus, stock, forecast, fillrate, actions] = await Promise.all([
+// LOAD ALL
+async function loadAll(){
+  try{
+    const [skus,stock,forecast,fillrate,actions,cashcycle] = await Promise.all([
       fetchSheet('SKU_Master!A:I'),
       fetchSheet('Stock_Health!A:L'),
-      fetchSheet('Forecast!A:I'),
+      fetchSheet('Forecast!A:N'),
       fetchSheet('Order_Fill_Rate!A:I'),
       fetchSheet('Actions!A:H'),
+      fetchSheet('Cash_Cycle!A:L'),
     ]);
 
-    renderKPIs(stock, actions, fillrate, forecast);
+    const skuMap={};
+    skus.forEach(s=>skuMap[s.SKU_Code]=s);
+
+    renderKPIs(stock,actions,fillrate,forecast,cashcycle,skuMap);
+    renderPaceSummary(forecast,skuMap);
+    renderCoverageSummary(forecast,skuMap);
+    renderCashSummary(cashcycle);
     renderStockSummary(stock);
     renderActionsSummary(actions);
-    renderForecastSummary(forecast);
-    renderFillRateSummary(fillrate);
+    renderPaceTable(forecast,skuMap);
+    renderCoverageTable(forecast,skuMap);
+    renderCashTable(cashcycle,skuMap);
     renderStockTable(stock);
-    renderForecastTable(forecast);
     renderFillRateTable(fillrate);
     renderActionsTable(actions);
     renderSKUTable(skus);
+    renderPaceInfo();
 
-    const critical = actions.filter(a => a.Priority === 'CRITICAL' && a.Status === 'Open').length;
-    document.getElementById('critical-count').textContent = critical + ' Critical';
+    const crit=actions.filter(a=>a.Priority==='CRITICAL'&&a.Status==='Open').length;
+    document.getElementById('critical-count').textContent=crit+' Critical';
 
-  } catch(e) {
-    document.getElementById('kpi-row').innerHTML = `
+  }catch(e){
+    document.getElementById('kpi-row').innerHTML=`
       <div style="grid-column:1/-1;background:#FEF2F2;border-radius:10px;padding:20px;color:#EF4444;font-size:13px;">
-        <strong>⚠ Could not load data.</strong><br><small style="color:#94A3B8;">${e.message}</small>
+        <strong>⚠ Could not load data.</strong><br>
+        <small style="color:#94A3B8;">${e.message}</small>
       </div>`;
   }
 }
 
-// ── KPIs ──────────────────────────────────────────────────────────────
-function renderKPIs(stock, actions, fillrate, forecast) {
-  const deficits  = stock.filter(s => s.Status === 'DEFICIT').length;
-  const excess    = stock.filter(s => s.Status === 'EXCESS').length;
-  const openActs  = actions.filter(a => a.Status === 'Open').length;
-  const shipped   = fillrate.reduce((s,r) => s+(parseFloat(r.Shipped)||0), 0);
-  const confirmed = fillrate.reduce((s,r) => s+(parseFloat(r.Confirmed_Orders)||0), 0);
-  const fillPct   = confirmed > 0 ? Math.round(shipped/confirmed*100) : 0;
-  const mayFcst   = forecast.reduce((s,r) => s+(parseFloat(r.May_Forecast)||0), 0);
-  const mayAct    = forecast.reduce((s,r) => s+(parseFloat(r.May_Actual)||0), 0);
-  const fcstPct   = mayFcst > 0 ? Math.round(mayAct/mayFcst*100) : 0;
+// PACE INFO
+function renderPaceInfo(){
+  document.getElementById('pace-info').innerHTML=`
+    <div class="info-item">📅 <strong>${monthName}</strong></div>
+    <div class="info-div"></div>
+    <div class="info-item">Day <strong>${dayOfMonth}</strong> of <strong>${daysInMonth}</strong></div>
+    <div class="info-div"></div>
+    <div class="info-item"><strong>${Math.round(monthPct*100)}%</strong> of month elapsed</div>
+    <div class="info-div"></div>
+    <div class="info-item">Expected: <strong>${Math.round(monthPct*100)}%</strong> of forecast sold by today</div>
+    <div class="info-div"></div>
+    <div class="info-item" style="color:#EF4444;">SKUs below 75% need immediate sales action</div>`;
+}
 
-  document.getElementById('kpi-row').innerHTML = `
+// KPIs
+function renderKPIs(stock,actions,fillrate,forecast,cashcycle,skuMap){
+  const deficits=stock.filter(s=>s.Status==='DEFICIT').length;
+  const openActs=actions.filter(a=>a.Status==='Open').length;
+  const shipped=fillrate.reduce((s,r)=>s+(parseFloat(r.Shipped)||0),0);
+  const confirmed=fillrate.reduce((s,r)=>s+(parseFloat(r.Confirmed_Orders)||0),0);
+  const fillPct=confirmed>0?Math.round(shipped/confirmed*100):0;
+
+  let behindCount=0,totalPace=0,paceCount=0,notCovered=0;
+  forecast.forEach(f=>{
+    const fcst=parseFloat(f.May_Forecast)||0;
+    const actual=parseFloat(f.Actual_To_Date)||0;
+    const avail=parseFloat(f.Total_Available)||0;
+    if(fcst>0){
+      const exp=fcst*monthPct;
+      const pace=exp>0?actual/exp*100:0;
+      totalPace+=pace; paceCount++;
+      if(pace<75) behindCount++;
+      if(avail<fcst) notCovered++;
+    }
+  });
+  const avgPace=paceCount>0?Math.round(totalPace/paceCount):0;
+
+  // Average turnover
+  const turns=cashcycle.map(c=>parseFloat(c.Inventory_Turnover)||0).filter(t=>t>0);
+  const avgTurn=turns.length>0?Math.round(turns.reduce((a,b)=>a+b,0)/turns.length*10)/10:0;
+
+  document.getElementById('kpi-row').innerHTML=`
+    <div class="kpi-card ${avgPace>=95?'green':avgPace>=75?'amber':'red'}">
+      <div class="kpi-label">Avg Sales Pace</div>
+      <div class="kpi-value">${avgPace}%</div>
+      <div class="score-bar"><div class="score-fill" style="width:${Math.min(avgPace,100)}%;background:${pc(avgPace)};"></div></div>
+      <div class="kpi-sub">Day ${dayOfMonth}/${daysInMonth} · Target 100%</div>
+    </div>
+    <div class="kpi-card ${behindCount===0?'green':behindCount<=3?'amber':'red'}">
+      <div class="kpi-label">SKUs Behind Pace</div>
+      <div class="kpi-value">${behindCount}</div>
+      <div class="kpi-sub">Below 75% expected pace</div>
+    </div>
+    <div class="kpi-card ${notCovered===0?'green':notCovered<=5?'amber':'red'}">
+      <div class="kpi-label">Coverage Gaps</div>
+      <div class="kpi-value">${notCovered}</div>
+      <div class="kpi-sub">SKUs not fully covered</div>
+    </div>
+    <div class="kpi-card ${avgTurn>=12?'green':avgTurn>=6?'amber':'red'}">
+      <div class="kpi-label">Avg Inventory Turnover</div>
+      <div class="kpi-value">${avgTurn}×</div>
+      <div class="kpi-sub">Times per year · Target ≥12×</div>
+    </div>
     <div class="kpi-card ${fillPct>=90?'green':fillPct>=70?'amber':'red'}">
       <div class="kpi-label">Order Fill Rate</div>
       <div class="kpi-value">${fillPct}%</div>
-      <div class="score-bar"><div class="score-fill" style="width:${fillPct}%;background:${fillPct>=90?'#00C896':fillPct>=70?'#F59E0B':'#EF4444'};"></div></div>
+      <div class="score-bar"><div class="score-fill" style="width:${fillPct}%;background:${pc(fillPct)};"></div></div>
       <div class="kpi-sub">Target ≥ 95%</div>
-    </div>
-    <div class="kpi-card ${fcstPct>=90?'green':fcstPct>=60?'amber':'red'}">
-      <div class="kpi-label">Forecast Accuracy</div>
-      <div class="kpi-value">${fcstPct}%</div>
-      <div class="score-bar"><div class="score-fill" style="width:${fcstPct}%;background:${fcstPct>=90?'#00C896':fcstPct>=60?'#F59E0B':'#EF4444'};"></div></div>
-      <div class="kpi-sub">Target ≥ 90%</div>
-    </div>
-    <div class="kpi-card red">
-      <div class="kpi-label">SKUs in Deficit</div>
-      <div class="kpi-value">${deficits}</div>
-      <div class="kpi-sub">${excess} SKUs with excess</div>
     </div>
     <div class="kpi-card amber">
       <div class="kpi-label">Open Actions</div>
@@ -437,12 +591,191 @@ function renderKPIs(stock, actions, fillrate, forecast) {
     </div>`;
 }
 
-// ── SUMMARIES ─────────────────────────────────────────────────────────
-function renderStockSummary(stock) {
-  const issues = stock.filter(s => s.Status==='DEFICIT'||s.Status==='EXCESS').slice(0,8);
-  document.getElementById('stock-summary').innerHTML = issues.map(s => `
+// CASH SUMMARY
+function renderCashSummary(cashcycle){
+  const sorted=[...cashcycle].sort((a,b)=>(parseFloat(b.Days_Capital_Tied)||0)-(parseFloat(a.Days_Capital_Tied)||0)).slice(0,7);
+  document.getElementById('cash-summary').innerHTML=sorted.map(c=>{
+    const days=parseFloat(c.Days_Capital_Tied)||0;
+    const turn=parseFloat(c.Inventory_Turnover)||0;
+    return`<tr>
+      <td><strong>${c.SKU_Name.substring(0,20)}</strong></td>
+      <td><span style="color:${days>100?'#EF4444':days>50?'#D97706':'#059669'};font-weight:700;">${Math.round(days)}d</span></td>
+      <td><span style="color:${turnColor(turn)};font-weight:700;">${turn.toFixed(1)}×</span></td>
+    </tr>`;}).join('');
+}
+
+// PACE SUMMARY
+function renderPaceSummary(forecast,skuMap){
+  const rows=forecast.map(f=>{
+    const fcst=parseFloat(f.May_Forecast)||0;
+    const actual=parseFloat(f.Actual_To_Date)||0;
+    const exp=fcst*monthPct;
+    const pace=exp>0?actual/exp*100:0;
+    return{...f,fcst,actual,exp,pace};
+  }).filter(f=>f.fcst>0&&f.pace<95).sort((a,b)=>a.pace-b.pace).slice(0,6);
+
+  document.getElementById('pace-summary').innerHTML=rows.map(f=>`
     <tr>
-      <td><strong>${s.SKU_Name}</strong></td>
+      <td><strong>${f.SKU_Name.substring(0,18)}</strong></td>
+      <td>${Math.round(f.exp).toLocaleString()}</td>
+      <td>${Math.round(f.actual).toLocaleString()}</td>
+      <td><span style="color:${paceColor(f.pace)};font-weight:700;">${Math.round(f.pace)}%</span></td>
+    </tr>`).join('')||'<tr><td colspan="4" style="text-align:center;color:#94A3B8;padding:16px;">All on pace ✓</td></tr>';
+}
+
+// COVERAGE SUMMARY
+function renderCoverageSummary(forecast,skuMap){
+  const rows=forecast.filter(f=>{
+    const fcst=parseFloat(f.May_Forecast)||0;
+    const avail=parseFloat(f.Total_Available)||0;
+    return fcst>0&&avail<fcst;
+  }).sort((a,b)=>{
+    const pa=(parseFloat(a.Total_Available)||0)/(parseFloat(a.May_Forecast)||1);
+    const pb=(parseFloat(b.Total_Available)||0)/(parseFloat(b.May_Forecast)||1);
+    return pa-pb;
+  }).slice(0,6);
+
+  document.getElementById('coverage-summary').innerHTML=rows.map(f=>{
+    const fcst=parseFloat(f.May_Forecast)||0;
+    const avail=parseFloat(f.Total_Available)||0;
+    const covPct=fcst>0?Math.round(avail/fcst*100):0;
+    return`<tr>
+      <td><strong>${f.SKU_Name.substring(0,18)}</strong></td>
+      <td>${avail.toLocaleString()}</td>
+      <td><span style="color:${covColor(covPct)};font-weight:700;">${covPct}%</span></td>
+      <td>${pill(f.Coverage_Status||'Not Covered')}</td>
+    </tr>`;}).join('')||'<tr><td colspan="4" style="text-align:center;color:#94A3B8;padding:16px;">All covered ✓</td></tr>';
+}
+
+// PACE TABLE
+function renderPaceTable(forecast,skuMap){
+  document.getElementById('pace-table').innerHTML=forecast.map(f=>{
+    const fcst=parseFloat(f.May_Forecast)||0;
+    const actual=parseFloat(f.Actual_To_Date)||0;
+    const exp=fcst*monthPct;
+    const pace=exp>0?Math.round(actual/exp*100):0;
+    const gap=Math.round(actual-exp);
+    const sku=skuMap[f.SKU_Code]||{};
+    const price=parseFloat(sku.Price_USD)||0;
+    const gapUSD=Math.abs(gap)*price;
+    const actualPct=fcst>0?Math.min(actual/fcst*100,100):0;
+    const expPct=Math.min(monthPct*100,100);
+    const color=paceColor(pace);
+    return`<tr>
+      <td>${code(f.SKU_Code)}</td>
+      <td><strong>${f.SKU_Name}</strong></td>
+      <td>${f.UOM}</td>
+      <td>${fcst>0?fcst.toLocaleString():'—'}</td>
+      <td>${Math.round(exp).toLocaleString()}</td>
+      <td><strong>${actual.toLocaleString()}</strong></td>
+      <td><span style="color:${color};font-weight:700;">${pace}%</span></td>
+      <td style="color:${gap>=0?'#059669':'#EF4444'};font-weight:600;">${gap>=0?'+':''}${gap.toLocaleString()}</td>
+      <td style="color:${gap>=0?'#059669':'#EF4444'};">${gapUSD>0?(gap>=0?'+':'-')+'$'+Math.round(gapUSD).toLocaleString():'—'}</td>
+      <td style="min-width:100px;">
+        <div class="pace-wrap">
+          <div class="pace-fill" style="width:${actualPct}%;background:${color};"></div>
+          <div class="pace-marker" style="left:${expPct}%;"></div>
+        </div>
+        <div style="font-size:9px;color:#94A3B8;margin-top:2px;">${Math.round(actualPct)}% sold · ${Math.round(expPct)}% expected</div>
+      </td>
+      <td>${pill(paceStatus(pace))}</td>
+      <td style="font-size:11px;color:#64748B;">${f.Notes||''}</td>
+    </tr>`;}).join('');
+}
+
+// COVERAGE TABLE
+function renderCoverageTable(forecast,skuMap){
+  document.getElementById('coverage-table').innerHTML=forecast.map(f=>{
+    const fcst=parseFloat(f.May_Forecast)||0;
+    const wh=parseFloat(f.Warehouse_Stock)||0;
+    const tr=parseFloat(f.InTransit_Stock)||0;
+    const avail=wh+tr;
+    const covPct=fcst>0?Math.round(avail/fcst*100):0;
+    const gap=Math.round(avail-fcst);
+    const sku=skuMap[f.SKU_Code]||{};
+    const price=parseFloat(sku.Price_USD)||0;
+    const gapUSD=Math.abs(gap)*price;
+    const whPct=avail>0?Math.min(wh/avail*100,100):0;
+    const trPct=avail>0?Math.min(tr/avail*100,100):0;
+    const status=f.Coverage_Status||'Not Covered';
+    const color=covColor(covPct);
+    return`<tr>
+      <td>${code(f.SKU_Code)}</td>
+      <td><strong>${f.SKU_Name}</strong></td>
+      <td>${f.UOM}</td>
+      <td>${fcst>0?fcst.toLocaleString():'—'}</td>
+      <td style="color:#059669;">${wh>0?wh.toLocaleString():'—'}</td>
+      <td style="color:#F59E0B;">${tr>0?tr.toLocaleString():'—'}</td>
+      <td><strong>${avail.toLocaleString()}</strong></td>
+      <td><span style="color:${color};font-weight:700;">${covPct}%</span></td>
+      <td style="color:${gap>=0?'#059669':'#EF4444'};font-weight:600;">${gap>=0?'+':''}${gap.toLocaleString()}</td>
+      <td style="color:${gap>=0?'#059669':'#EF4444'};">${gapUSD>0?(gap>=0?'+':'-')+'$'+Math.round(gapUSD).toLocaleString():'—'}</td>
+      <td style="min-width:90px;">
+        <div class="stack-bar">
+          <div class="stack-wh" style="width:${whPct}%;"></div>
+          <div class="stack-tr" style="width:${trPct}%;"></div>
+        </div>
+        <div style="font-size:9px;color:#94A3B8;margin-top:2px;">🟢${Math.round(wh).toLocaleString()} 🟡${Math.round(tr).toLocaleString()}</div>
+      </td>
+      <td>${pill(status)}</td>
+      <td style="font-size:11px;color:${status==='Not Covered'?'#EF4444':'#64748B'};font-weight:${status==='Not Covered'?'600':'400'};">${f.Notes||''}</td>
+    </tr>`;}).join('');
+}
+
+// CASH CYCLE TABLE
+function renderCashTable(cashcycle,skuMap){
+  // Find max days for bar scaling
+  const maxDays=Math.max(...cashcycle.map(c=>parseFloat(c.Days_Capital_Tied)||0),1);
+
+  document.getElementById('cash-table').innerHTML=cashcycle.sort((a,b)=>(parseFloat(b.Days_Capital_Tied)||0)-(parseFloat(a.Days_Capital_Tied)||0)).map(c=>{
+    const days=parseFloat(c.Days_Capital_Tied)||0;
+    const turn=parseFloat(c.Inventory_Turnover)||0;
+    const wh=parseFloat(c.Warehouse_Stock)||0;
+    const tr=parseFloat(c.InTransit_Stock)||0;
+    const cust=parseFloat(c.Customs_Stock)||0;
+    const ar=parseFloat(c.AR_Units)||0;
+    const total=parseFloat(c.Total_Tied_Up)||0;
+    const sku=skuMap[c.SKU_Code]||{};
+    const price=parseFloat(sku.Price_USD)||0;
+    const totalUSD=total*price;
+    const barPct=maxDays>0?Math.min(days/maxDays*100,100):0;
+    const whPct=total>0?wh/total*100:0;
+    const trPct=total>0?tr/total*100:0;
+    const custPct=total>0?cust/total*100:0;
+    const arPct=total>0?ar/total*100:0;
+    const status=turnStatus(turn);
+    const dcolor=days>100?'#EF4444':days>50?'#D97706':'#059669';
+    return`<tr>
+      <td>${code(c.SKU_Code)}</td>
+      <td><strong>${c.SKU_Name}</strong></td>
+      <td>${c.UOM}</td>
+      <td>${fmt(c.Avg_Daily_Consumption)}</td>
+      <td style="color:#059669;">${wh>0?wh.toLocaleString():'—'}</td>
+      <td style="color:#F59E0B;">${tr>0?tr.toLocaleString():'—'}</td>
+      <td style="color:#3B82F6;">${cust>0?cust.toLocaleString():'—'}</td>
+      <td style="color:#EF4444;">${ar>0?ar.toLocaleString():'—'}</td>
+      <td><strong>${total>0?total.toLocaleString():'—'}</strong>${totalUSD>0?`<br><span style="font-size:10px;color:#94A3B8;">$${Math.round(totalUSD).toLocaleString()}</span>`:''}</td>
+      <td><span style="color:${dcolor};font-weight:700;font-size:14px;">${Math.round(days)}</span><span style="color:#94A3B8;font-size:10px;"> days</span></td>
+      <td><span style="color:${turnColor(turn)};font-weight:700;font-size:14px;">${turn.toFixed(1)}</span><span style="color:#94A3B8;font-size:10px;">× /yr</span></td>
+      <td style="min-width:100px;">
+        <div class="stack-bar" style="height:10px;">
+          <div class="stack-wh" style="width:${whPct}%;"></div>
+          <div class="stack-tr" style="width:${trPct}%;"></div>
+          <div style="width:${custPct}%;background:#3B82F6;"></div>
+          <div class="stack-ar" style="width:${arPct}%;"></div>
+        </div>
+        <div style="font-size:9px;color:#94A3B8;margin-top:2px;">🟢WH 🟡TR 🔵Cust 🔴AR</div>
+      </td>
+      <td>${pill(status)}</td>
+      <td style="font-size:11px;color:#64748B;">${c.Notes||''}</td>
+    </tr>`;}).join('');
+}
+
+// STOCK SUMMARY
+function renderStockSummary(stock){
+  document.getElementById('stock-summary').innerHTML=stock.filter(s=>s.Status==='DEFICIT'||s.Status==='EXCESS').slice(0,6).map(s=>`
+    <tr>
+      <td><strong>${s.SKU_Name.substring(0,18)}</strong></td>
       <td>${pill(s.Status)}</td>
       <td>${s.Actual_DOH_Days||'0'}d</td>
       <td>${s.Target_DOH_Days}d</td>
@@ -452,11 +785,11 @@ function renderStockSummary(stock) {
     </tr>`).join('');
 }
 
-function renderActionsSummary(actions) {
-  const order = ['CRITICAL','HIGH','MEDIUM','LOW'];
-  const sorted = [...actions].sort((a,b)=>order.indexOf(a.Priority)-order.indexOf(b.Priority));
-  const open = sorted.filter(a=>a.Status==='Open').slice(0,6);
-  document.getElementById('actions-summary').innerHTML = open.map(a=>`
+// ACTIONS SUMMARY
+function renderActionsSummary(actions){
+  const order=['CRITICAL','HIGH','MEDIUM','LOW'];
+  const sorted=[...actions].sort((a,b)=>order.indexOf(a.Priority)-order.indexOf(b.Priority));
+  document.getElementById('actions-summary').innerHTML=sorted.filter(a=>a.Status==='Open').slice(0,6).map(a=>`
     <div class="action-item">
       <span class="action-owner ${a.Owner==='SC'?'owner-sc':'owner-sales'}">${a.Owner}</span>
       <div style="flex:1;">
@@ -467,82 +800,37 @@ function renderActionsSummary(actions) {
     </div>`).join('');
 }
 
-function renderForecastSummary(forecast) {
-  document.getElementById('forecast-summary').innerHTML = forecast.slice(0,8).map(f=>{
-    const n=parseFloat(f.May_Attainment)||0;
-    return `<tr>
-      <td><strong>${f.SKU_Name.substring(0,20)}</strong></td>
-      <td>${fmt(f.May_Forecast)}</td>
-      <td>${fmt(f.May_Actual)||'—'}</td>
-      <td><span style="color:${pctColor(n)};font-weight:600;">${f.May_Attainment||'0%'}</span></td>
-    </tr>`;}).join('');
-}
-
-function renderFillRateSummary(fillrate) {
-  document.getElementById('fillrate-summary').innerHTML = fillrate
-    .filter(f=>parseFloat(f.Confirmed_Orders)>0).slice(0,8).map(f=>`
+// STOCK TABLE
+function renderStockTable(stock){
+  document.getElementById('stock-table').innerHTML=stock.map(s=>`
     <tr>
-      <td><strong>${f.SKU_Name.substring(0,20)}</strong></td>
-      <td>${fmt(f.Confirmed_Orders)}</td>
-      <td>${fmt(f.Shipped)}</td>
-      <td><strong>${f.Fill_Rate||'0%'}</strong></td>
-      <td>${pill(f.Status)}</td>
-    </tr>`).join('');
-}
-
-// ── FULL TABLES ───────────────────────────────────────────────────────
-function renderStockTable(stock) {
-  document.getElementById('stock-table').innerHTML = stock.map(s=>`
-    <tr>
-      <td><code style="font-size:10px;background:#F1F5F9;padding:2px 5px;border-radius:3px;">${s.SKU_Code}</code></td>
-      <td><strong>${s.SKU_Name}</strong></td>
-      <td>${pill(s.Status)}</td>
-      <td>${s.Target_DOH_Days}</td>
-      <td>${s.Actual_DOH_Days||'0'}</td>
-      <td>${fmtUSD(s.Current_Stock_USD)}</td>
-      <td>${fmtUSD(s.Target_Stock_USD)}</td>
-      <td style="color:#F59E0B;font-weight:${s.Excess_USD>0?'600':'400'}">${s.Excess_USD>0?fmtUSD(s.Excess_USD):'—'}</td>
-      <td style="color:#EF4444;font-weight:${s.Deficit_USD>0?'600':'400'}">${s.Deficit_USD>0?fmtUSD(s.Deficit_USD):'—'}</td>
-      <td style="color:${s.Aging_60plus_USD>0?'#EF4444':'#94A3B8'}">${s.Aging_60plus_USD>0?fmtUSD(s.Aging_60plus_USD):'—'}</td>
+      <td>${code(s.SKU_Code)}</td><td><strong>${s.SKU_Name}</strong></td>
+      <td>${pill(s.Status)}</td><td>${s.Target_DOH_Days}</td><td>${s.Actual_DOH_Days||'0'}</td>
+      <td>${fmtUSD(s.Current_Stock_USD)}</td><td>${fmtUSD(s.Target_Stock_USD)}</td>
+      <td style="color:#F59E0B;font-weight:${parseFloat(s.Excess_USD)>0?'600':'400'}">${parseFloat(s.Excess_USD)>0?fmtUSD(s.Excess_USD):'—'}</td>
+      <td style="color:#EF4444;font-weight:${parseFloat(s.Deficit_USD)>0?'600':'400'}">${parseFloat(s.Deficit_USD)>0?fmtUSD(s.Deficit_USD):'—'}</td>
+      <td style="color:${parseFloat(s.Aging_60plus_USD)>0?'#EF4444':'#94A3B8'}">${parseFloat(s.Aging_60plus_USD)>0?fmtUSD(s.Aging_60plus_USD):'—'}</td>
       <td style="color:#64748B;font-size:11px;">${s.Notes}</td>
     </tr>`).join('');
 }
 
-function renderForecastTable(forecast) {
-  document.getElementById('forecast-table').innerHTML = forecast.map(f=>{
-    const n=parseFloat(f.May_Attainment)||0;
-    return `<tr>
-      <td><code style="font-size:10px;background:#F1F5F9;padding:2px 5px;border-radius:3px;">${f.SKU_Code}</code></td>
-      <td><strong>${f.SKU_Name}</strong></td>
-      <td>${f.UOM}</td>
-      <td>${fmt(f.May_Forecast)}</td>
-      <td>${fmt(f.May_Actual)||'—'}</td>
-      <td><span style="color:${pctColor(n)};font-weight:600;">${f.May_Attainment||'0%'}</span></td>
-      <td>${fmt(f.June_Forecast)}</td>
-      <td style="font-size:11px;color:#64748B;">${f.Source}</td>
-      <td style="font-size:11px;color:#64748B;">${f.Notes}</td>
-    </tr>`;}).join('');
-}
-
-function renderFillRateTable(fillrate) {
-  document.getElementById('fillrate-table').innerHTML = fillrate.map(f=>`
+// FILL RATE TABLE
+function renderFillRateTable(fillrate){
+  document.getElementById('fillrate-table').innerHTML=fillrate.map(f=>`
     <tr>
-      <td><code style="font-size:10px;background:#F1F5F9;padding:2px 5px;border-radius:3px;">${f.SKU_Code}</code></td>
-      <td><strong>${f.SKU_Name}</strong></td>
-      <td>${f.UOM}</td>
-      <td>${fmt(f.Confirmed_Orders)}</td>
-      <td>${fmt(f.Shipped)}</td>
-      <td><strong>${f.Fill_Rate||'0%'}</strong></td>
-      <td>${f.Week}</td>
+      <td>${code(f.SKU_Code)}</td><td><strong>${f.SKU_Name}</strong></td>
+      <td>${f.UOM}</td><td>${fmt(f.Confirmed_Orders)}</td><td>${fmt(f.Shipped)}</td>
+      <td><strong>${f.Fill_Rate||'0%'}</strong></td><td>${f.Week}</td>
       <td>${pill(f.Status)}</td>
       <td style="font-size:11px;color:#64748B;">${f.Notes}</td>
     </tr>`).join('');
 }
 
-function renderActionsTable(actions) {
-  const order = ['CRITICAL','HIGH','MEDIUM','LOW'];
-  const sorted = [...actions].sort((a,b)=>order.indexOf(a.Priority)-order.indexOf(b.Priority));
-  document.getElementById('actions-table').innerHTML = sorted.map(a=>`
+// ACTIONS TABLE
+function renderActionsTable(actions){
+  const order=['CRITICAL','HIGH','MEDIUM','LOW'];
+  const sorted=[...actions].sort((a,b)=>order.indexOf(a.Priority)-order.indexOf(b.Priority));
+  document.getElementById('actions-table').innerHTML=sorted.map(a=>`
     <div class="action-item">
       <span class="action-owner ${a.Owner==='SC'?'owner-sc':'owner-sales'}">${a.Owner}</span>
       <div style="flex:1;">
@@ -557,15 +845,13 @@ function renderActionsTable(actions) {
     </div>`).join('');
 }
 
-function renderSKUTable(skus) {
-  document.getElementById('sku-table').innerHTML = skus.map(s=>`
+// SKU TABLE
+function renderSKUTable(skus){
+  document.getElementById('sku-table').innerHTML=skus.map(s=>`
     <tr>
-      <td><code style="font-size:10px;background:#F1F5F9;padding:2px 5px;border-radius:3px;">${s.SKU_Code}</code></td>
-      <td><strong>${s.SKU_Name}</strong></td>
-      <td>${s.Category}</td>
-      <td>${s.UOM}</td>
-      <td>${s.Lead_Time_Days}</td>
-      <td>${s.Target_DOH_Days}</td>
+      <td>${code(s.SKU_Code)}</td><td><strong>${s.SKU_Name}</strong></td>
+      <td>${s.Category}</td><td>${s.UOM}</td>
+      <td>${s.Lead_Time_Days}</td><td>${s.Target_DOH_Days}</td>
       <td>$${parseFloat(s.Price_USD||0).toFixed(3)}</td>
       <td>${s.Runner_Class}</td>
       <td style="font-size:11px;color:#64748B;">${s.Notes}</td>
