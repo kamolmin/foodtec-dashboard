@@ -305,9 +305,14 @@
       <table>
         <thead><tr>
           <th>SKU Code</th><th>SKU Name</th><th>UOM</th>
-          <th>Monthly Forecast</th><th>Expected by Today</th><th>Actual to Date</th>
-          <th>Pace %</th><th>Gap (units)</th><th>Gap (USD)</th>
-          <th>Progress</th><th>Status</th><th>Notes</th>
+          <th class="col-tip">Monthly Forecast<span class="tip-box">Total units the sales team plans to sell this month. Manual input from Asadbek. This is the baseline — all pace calculations are measured against this number.<span class="tip-formula">Source: Forecast sheet → May_Forecast column</span></span></th>
+          <th class="col-tip">Expected by Today<span class="tip-box">How much should have been sold by today if sales progress evenly through the month. Auto-calculated from today's date — resets on the 1st of each month.<span class="tip-formula">Monthly_Forecast × (Day_of_Month ÷ Days_in_Month)</span></span></th>
+          <th class="col-tip">Actual to Date<span class="tip-box">Cumulative units actually shipped to clients from day 1 of the month to today. Updated every Monday from ibox shipment report.<span class="tip-formula">Source: Forecast sheet → Actual_To_Date column (manual)</span></span></th>
+          <th class="col-tip">Pace %<span class="tip-box">The key metric. Are we ahead or behind the daily pace? 100% = exactly on track. Below 75% = behind and needs immediate sales action. Auto-adjusts every day.<span class="tip-formula">Actual_To_Date ÷ Expected_by_Today × 100</span></span></th>
+          <th class="col-tip">Gap (units)<span class="tip-box">Units above or below the expected daily pace. Negative = behind schedule. Positive = ahead. Gives the raw quantity the sales team needs to close this week.<span class="tip-formula">Actual_To_Date − Expected_by_Today</span></span></th>
+          <th class="col-tip">Gap (USD)<span class="tip-box">Dollar value of the pace gap. Negative = revenue at risk if pace doesn't recover. Calculated using the SKU's purchase price as a proxy — selling price would give higher number.<span class="tip-formula">Gap_Units × Price_USD (from SKU Master)</span></span></th>
+          <th class="col-tip">Progress<span class="tip-box">Visual progress bar. Green bar = actual sales. Black vertical marker = where you should be today. Bar short of marker = behind. Bar past marker = ahead.<span class="tip-formula">Bar width = Actual ÷ Forecast · Marker position = Days_Elapsed ÷ Days_in_Month</span></span></th>
+          <th>Status</th><th>Notes</th>
         </tr></thead>
         <tbody id="pace-table"></tbody>
       </table>
@@ -319,7 +324,9 @@
     <div class="info-bar">
       <div class="info-item">🟢 <strong>Warehouse</strong> — on hand</div>
       <div class="info-div"></div>
-      <div class="info-item">🟡 <strong>In-Transit</strong> — ordered & coming</div>
+      <div class="info-item">🔵 <strong>Customs WH</strong> — paid, ready in 4-5hrs</div>
+      <div class="info-div"></div>
+      <div class="info-item">🟡 <strong>In-Transit</strong> — still on the way</div>
       <div class="info-div"></div>
       <div class="info-item"><strong>Coverage % = Total Available ÷ May Forecast × 100</strong></div>
       <div class="info-div"></div>
@@ -797,7 +804,7 @@ function renderKPIs(stock,actions,fillrate,forecast,cashcycle){
   forecast.forEach(f=>{
     const fcst=parseFloat(f.May_Forecast)||0;
     const actual=parseFloat(f.Actual_To_Date)||0;
-    const avail=parseFloat(f.Total_Available)||0;
+    const avail=(parseFloat(f.Warehouse_Stock)||0)+(parseFloat(f.Customs_Stock)||0)+(parseFloat(f.InTransit_Stock)||0);
     if(fcst>0){
       const exp=fcst*monthPct;
       const pace=exp>0?actual/exp*100:0;
@@ -974,17 +981,19 @@ function renderPaceSummary(forecast,skuMap){
 function renderCoverageSummary(forecast,skuMap){
   const rows=forecast.filter(f=>{
     const fcst=parseFloat(f.May_Forecast)||0;
-    const avail=parseFloat(f.Total_Available)||0;
+    const avail=(parseFloat(f.Warehouse_Stock)||0)+(parseFloat(f.Customs_Stock)||0)+(parseFloat(f.InTransit_Stock)||0);
     return fcst>0&&avail<fcst;
   }).sort((a,b)=>{
-    const pa=(parseFloat(a.Total_Available)||0)/(parseFloat(a.May_Forecast)||1);
-    const pb=(parseFloat(b.Total_Available)||0)/(parseFloat(b.May_Forecast)||1);
+    const aAvail=(parseFloat(a.Warehouse_Stock)||0)+(parseFloat(a.Customs_Stock)||0)+(parseFloat(a.InTransit_Stock)||0);
+    const bAvail=(parseFloat(b.Warehouse_Stock)||0)+(parseFloat(b.Customs_Stock)||0)+(parseFloat(b.InTransit_Stock)||0);
+    const pa=aAvail/(parseFloat(a.May_Forecast)||1);
+    const pb=bAvail/(parseFloat(b.May_Forecast)||1);
     return pa-pb;
   }).slice(0,6);
 
   document.getElementById('coverage-summary').innerHTML=rows.map(f=>{
     const fcst=parseFloat(f.May_Forecast)||0;
-    const avail=parseFloat(f.Total_Available)||0;
+    const avail=(parseFloat(f.Warehouse_Stock)||0)+(parseFloat(f.Customs_Stock)||0)+(parseFloat(f.InTransit_Stock)||0);
     const covPct=fcst>0?Math.round(avail/fcst*100):0;
     return`<tr>
       <td><strong>${f.SKU_Name.substring(0,18)}</strong></td>
@@ -1064,14 +1073,16 @@ function renderCoverageTable(forecast,skuMap){
   document.getElementById('coverage-table').innerHTML=forecast.map(f=>{
     const fcst=parseFloat(f.May_Forecast)||0;
     const wh=parseFloat(f.Warehouse_Stock)||0;
+    const cust=parseFloat(f.Customs_Stock)||0;
     const tr=parseFloat(f.InTransit_Stock)||0;
-    const avail=wh+tr;
+    const avail=wh+cust+tr;
     const covPct=fcst>0?Math.round(avail/fcst*100):0;
     const gap=Math.round(avail-fcst);
     const sku=skuMap[f.SKU_Code]||{};
     const price=parseFloat(sku.Price_USD)||0;
     const gapUSD=Math.abs(gap)*price;
     const whPct=avail>0?Math.min(wh/avail*100,100):0;
+    const custPct=avail>0?Math.min(cust/avail*100,100):0;
     const trPct=avail>0?Math.min(tr/avail*100,100):0;
     const status=f.Coverage_Status||'Not Covered';
     const color=covColor(covPct);
@@ -1081,6 +1092,7 @@ function renderCoverageTable(forecast,skuMap){
       <td>${f.UOM}</td>
       <td>${fcst>0?fcst.toLocaleString():'—'}</td>
       <td style="color:#059669;">${wh>0?wh.toLocaleString():'—'}</td>
+      <td style="color:#3B82F6;">${cust>0?cust.toLocaleString():'—'}</td>
       <td style="color:#F59E0B;">${tr>0?tr.toLocaleString():'—'}</td>
       <td><strong>${avail.toLocaleString()}</strong></td>
       <td><span style="color:${color};font-weight:700;">${covPct}%</span></td>
@@ -1089,9 +1101,10 @@ function renderCoverageTable(forecast,skuMap){
       <td style="min-width:90px;">
         <div class="stack-bar">
           <div class="stack-wh" style="width:${whPct}%;"></div>
+          <div style="width:${custPct}%;background:#3B82F6;"></div>
           <div class="stack-tr" style="width:${trPct}%;"></div>
         </div>
-        <div style="font-size:9px;color:#94A3B8;margin-top:2px;">🟢${Math.round(wh).toLocaleString()} 🟡${Math.round(tr).toLocaleString()}</div>
+        <div style="font-size:9px;color:#94A3B8;margin-top:2px;">🟢${Math.round(wh).toLocaleString()} 🔵${Math.round(cust).toLocaleString()} 🟡${Math.round(tr).toLocaleString()}</div>
       </td>
       <td>${pill(status)}</td>
       <td style="font-size:11px;color:${status==='Not Covered'?'#EF4444':'#64748B'};font-weight:${status==='Not Covered'?'600':'400'};">${f.Notes||''}</td>
