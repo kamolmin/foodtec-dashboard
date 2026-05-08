@@ -131,6 +131,60 @@
   /* FOOTER */
   .footer{text-align:center;padding:16px;font-size:10px;color:#94A3B8;}
 
+
+  /* TOGGLE SWITCH */
+  .toggle-switch{position:relative;display:inline-block;width:44px;height:24px;}
+  .toggle-switch input{opacity:0;width:0;height:0;}
+  .toggle-slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:#E2E8F0;border-radius:24px;transition:0.3s;}
+  .toggle-slider:before{position:absolute;content:"";height:18px;width:18px;left:3px;bottom:3px;background:white;border-radius:50%;transition:0.3s;box-shadow:0 1px 3px rgba(0,0,0,0.2);}
+  input:checked + .toggle-slider{background:#00C896;}
+  input:checked + .toggle-slider:before{transform:translateX(20px);}
+
+  /* COLUMN TOOLTIP */
+  .col-tip{position:relative;}
+  .col-tip .tip-box{
+    display:none;
+    position:absolute;
+    top:110%;
+    left:50%;
+    transform:translateX(-50%);
+    background:#0F1B2D;
+    color:#fff;
+    font-size:11px;
+    font-family:'Inter',sans-serif;
+    font-weight:400;
+    line-height:1.5;
+    padding:10px 14px;
+    border-radius:8px;
+    width:260px;
+    z-index:9999;
+    box-shadow:0 4px 20px rgba(0,0,0,0.3);
+    white-space:normal;
+    pointer-events:none;
+  }
+  .col-tip .tip-box::before{
+    content:'';
+    position:absolute;
+    bottom:100%;
+    left:50%;
+    transform:translateX(-50%);
+    border:6px solid transparent;
+    border-bottom-color:#0F1B2D;
+  }
+  .col-tip .tip-formula{
+    background:#1E3A5F;
+    border-radius:4px;
+    padding:4px 8px;
+    margin-top:6px;
+    font-family:'Consolas',monospace;
+    font-size:10px;
+    color:#00C896;
+    display:block;
+  }
+  .tooltips-active .col-tip:hover .tip-box{display:block;}
+  .tooltips-active .col-tip{cursor:help;}
+  .tooltips-active th.col-tip{border-bottom:2px dashed #00C896 !important;}
+
   /* MOBILE */
   @media(max-width:900px){.kpi-row{grid-template-columns:repeat(3,1fr);}.three-col{grid-template-columns:1fr 1fr;}}
   @media(max-width:768px){
@@ -278,11 +332,17 @@
     <div class="table-wrap">
       <table>
         <thead><tr>
-          <th>SKU Code</th><th>SKU Name</th><th>UOM</th>
-          <th>May Forecast</th><th>Warehouse</th><th>In-Transit</th><th>Total Available</th>
-          <th>Coverage %</th><th>Gap (units)</th><th>Gap (USD)</th>
-          <th>Stock Split</th><th>Status</th><th>Notes</th>
-        </tr></thead>
+  <th>SKU Code</th><th>SKU Name</th><th>UOM</th>
+  <th class="col-tip">May Forecast<span class="tip-box">Monthly sales plan. Used as the denominator for coverage — how much do we need vs how much do we have.<span class="tip-formula">May_Forecast from Forecast sheet</span></span></th>
+  <th class="col-tip">Warehouse Stock<span class="tip-box">Physical units currently sitting in FoodTec warehouse as of last update. Source: procurement snapshot or ibox.<span class="tip-formula">Warehouse_Stock column — manual input</span></span></th>
+  <th class="col-tip">In-Transit Stock<span class="tip-box">Units ordered and confirmed by supplier but not yet arrived at warehouse. Includes goods in transit and at customs.<span class="tip-formula">InTransit_Stock column — manual input</span></span></th>
+  <th class="col-tip">Total Available<span class="tip-box">Combined stock that will be available to ship this month. This is what covers the May forecast.<span class="tip-formula">Warehouse_Stock + InTransit_Stock</span></span></th>
+  <th class="col-tip">Coverage %<span class="tip-box">What % of the monthly forecast is covered by available stock. Below 100% = you cannot fulfill full forecast without ordering more.<span class="tip-formula">Total_Available ÷ May_Forecast × 100</span></span></th>
+  <th class="col-tip">Gap (units)<span class="tip-box">Units short (negative) or surplus (positive) vs the monthly forecast. Negative = order required before end of month.<span class="tip-formula">Total_Available − May_Forecast</span></span></th>
+  <th class="col-tip">Gap (USD)<span class="tip-box">Dollar value of the gap. Shows the financial impact of the shortage or surplus.<span class="tip-formula">|Gap_units| × Price_USD from SKU Master</span></span></th>
+  <th class="col-tip">Stock Split<span class="tip-box">Shows proportion of available stock that is physically on hand vs still in transit. All amber = stock exists but hasn't arrived yet.<span class="tip-formula">Visual bar — 🟢 Warehouse / 🟡 In-Transit</span></span></th>
+  <th>Status</th><th>Notes</th>
+</tr></thead>
         <tbody id="coverage-table"></tbody>
       </table>
     </div>
@@ -330,7 +390,18 @@
     </div>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>SKU Code</th><th>SKU Name</th><th>Status</th><th>Target DoH</th><th>Actual DoH</th><th>Current Stock USD</th><th>Target Stock USD</th><th>Excess USD</th><th>Deficit USD</th><th>Aging 60+ USD</th><th>Notes</th></tr></thead>
+        <thead><tr>
+  <th>SKU Code</th><th>SKU Name</th>
+  <th class="col-tip">Status<span class="tip-box">EXCESS = Current stock covers more than 2× target days. DEFICIT = Current stock covers less than target days. OK = within range.<span class="tip-formula">Compares Actual DoH vs Target DoH</span></span></th>
+  <th class="col-tip">Target DoH<span class="tip-box">The justified days of inventory to hold — enough to cover the full replenishment cycle plus one week safety buffer. Set in SKU Master.<span class="tip-formula">Lead_Time_Days + 7 (from SKU Master)</span></span></th>
+  <th class="col-tip">Actual DoH<span class="tip-box">How many days of supply current warehouse stock covers at the average daily consumption rate.<span class="tip-formula">Current_Stock_Units ÷ Avg_Daily_Qty</span></span></th>
+  <th class="col-tip">Current Stock USD<span class="tip-box">Dollar value of stock physically on hand today. This is capital currently locked in the warehouse.<span class="tip-formula">Current_Stock_Units × Price_USD</span></span></th>
+  <th class="col-tip">Target Stock USD<span class="tip-box">The justified dollar value of stock to hold. Formula: how many days we should hold × how fast it sells × what it costs. Benchmark for excess/deficit.<span class="tip-formula">Target_DOH_Days × Avg_Daily_Qty × Price_USD</span></span></th>
+  <th class="col-tip">Excess USD<span class="tip-box">Capital tied up above the justified level. This is money that could potentially be freed up by stopping reorders until stock comes down.<span class="tip-formula">MAX(Current_Stock_USD − Target_Stock_USD, 0)</span></span></th>
+  <th class="col-tip">Deficit USD<span class="tip-box">Capital missing below the justified level. This is the investment needed to reach safe stock levels and avoid stockouts.<span class="tip-formula">MAX(Target_Stock_USD − Current_Stock_USD, 0)</span></span></th>
+  <th class="col-tip">Aging 60+ USD<span class="tip-box">Value of stock that has been sitting in the warehouse for more than 60 days. This is capital at highest risk of becoming obsolete. Update from warehouse report.<span class="tip-formula">Aging_60plus_USD — manual input</span></span></th>
+  <th>Notes</th>
+</tr></thead>
         <tbody id="stock-table"></tbody>
       </table>
     </div>
@@ -344,7 +415,14 @@
     </div>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>SKU Code</th><th>SKU Name</th><th>UOM</th><th>Confirmed Orders</th><th>Shipped</th><th>Fill Rate</th><th>Week</th><th>Status</th><th>Notes</th></tr></thead>
+        <thead><tr>
+  <th>SKU Code</th><th>SKU Name</th><th>UOM</th>
+  <th class="col-tip">Confirmed Orders<span class="tip-box">Units that clients have formally confirmed they want to receive this week. This is a commitment, not a forecast. Get from Asadbek every Monday.<span class="tip-formula">Confirmed_Orders — manual input per week</span></span></th>
+  <th class="col-tip">Shipped<span class="tip-box">Units actually shipped to clients this week. Get from ibox shipment report. Compare against Confirmed Orders to see fill rate.<span class="tip-formula">Shipped — manual input per week</span></span></th>
+  <th class="col-tip">Fill Rate<span class="tip-box">What % of confirmed client orders were fulfilled. Gap = stock wasn't available OR logistics failed. Two different root causes needing different fixes.<span class="tip-formula">Shipped ÷ Confirmed_Orders × 100</span></span></th>
+  <th class="col-tip">Week<span class="tip-box">Calendar week of the data. Update the week column each Monday when entering new data.<span class="tip-formula">Week reference e.g. W19</span></span></th>
+  <th>Status</th><th>Notes</th>
+</tr></thead>
         <tbody id="fillrate-table"></tbody>
       </table>
     </div>
@@ -377,10 +455,20 @@
   <!-- GUIDE -->
   <div class="page" id="page-guide">
 
-    <div class="info-bar">
-      <div class="info-item">📖 This page explains how the dashboard works, what each metric means, and how to update data each week.</div>
-      <div class="info-div"></div>
-      <div class="info-item" style="color:#EF4444;">To update this content — ask Claude to edit the Guide section in GitHub.</div>
+    <div class="info-bar" style="justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+        <div class="info-item">📖 This page explains how the dashboard works, what each metric means, and how to update data each week.</div>
+        <div class="info-div"></div>
+        <div class="info-item" style="color:#EF4444;">To update this content — ask Claude to edit the Guide section in GitHub.</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
+        <span style="font-size:12px;font-weight:600;color:#0F1B2D;">Column Tooltips</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="tooltip-toggle" onchange="toggleTooltips(this.checked)"/>
+          <span class="toggle-slider"></span>
+        </label>
+        <span style="font-size:11px;color:#64748B;" id="tooltip-status">OFF</span>
+      </div>
     </div>
 
     <!-- HOW TO UPDATE DATA -->
@@ -633,6 +721,14 @@ function turnColor(t){return t>=8?'#059669':t>=4?'#D97706':'#EF4444';}
 function turnStatus(t){return t>=8?'Efficient':t>=4?'Moderate':t>=2?'Slow':'Very Slow';}
 function daysColor(d){return d>180?'#EF4444':d>90?'#D97706':'#059669';}
 function code(v){return `<code style="font-size:10px;background:#F1F5F9;padding:2px 5px;border-radius:3px;">${v}</code>`;}
+
+
+// TOOLTIP TOGGLE
+function toggleTooltips(on) {
+  document.querySelector('.main').classList.toggle('tooltips-active', on);
+  document.getElementById('tooltip-status').textContent = on ? 'ON' : 'OFF';
+  document.getElementById('tooltip-status').style.color = on ? '#00C896' : '#64748B';
+}
 
 // LOAD ALL
 async function loadAll(){
